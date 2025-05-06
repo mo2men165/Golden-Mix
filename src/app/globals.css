@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --golden: #C19434;
+  --golden-dark: #A17A20;
+  --golden-light: #E5D5A8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-golden: var(--golden);
+  --color-golden-dark: var(--golden-dark);
+  --color-golden-light: var(--golden-light);
+}
+
+/* Base styles */
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+
+/* Mobile menu animation */
+.mobile-menu {
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Class for gradient text */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--golden), var(--golden-light));
+}
+
+/* Class for hover lift effect */
+.hover-lift {
+  transition: transform 0.3s ease-out;
+}
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Heading underline style */
+.heading-underline {
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+.heading-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 4rem;
+  height: 0.25rem;
+  background: linear-gradient(to right, var(--golden), var(--golden-light));
+  border-radius: 9999px;
+}
+.heading-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}

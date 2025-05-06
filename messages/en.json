@@ -1,0 +1,444 @@
+{
+  "navbar": {
+    "getQuote": "Get a Quote",
+    "menu": "Menu"
+  },
+  "footer": {
+    "copyright": "Golden Mix. All rights reserved.",
+    "contactUs": "Contact Us",
+    "quickLinks": "Quick Links",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "workingHours": "Working Hours"
+  },
+  "home": {
+    "title": "Golden Mix | For Ready Mix Concrete",
+    "subtitle": "Your premier construction and design partner"
+  },
+  "about": {
+      "title": "About Golden Mix",
+      "subtitle": "Learn about our history, mission, and vision in construction excellence"
+  },
+  "servicesPage": {
+    "title": "Our Services - Golden Mix",
+  "subtitle": "Premium Ready Mix Concrete and Construction Services"
+  },
+"projects": {
+      "subheading": "Our Business Locations",
+      "heading": "Featured",
+      "headingHighlight": "Projects",
+      "description": "Explore our diverse portfolio of high-quality construction projects across Egypt's most prestigious locations.",
+      "viewDetails": "View Details",
+      "readMore": "Read More",
+      "viewAllProjects": "View All Projects",
+      "projectDescription": {
+        "1": "A premium residential compound in the New Administrative Capital featuring luxury villas and apartments with top-tier amenities.",
+        "2": "Modern residential development in New Zayed with distinctive architecture and green spaces.",
+        "3": "Elegant residential project in the New Administrative Capital with Spanish-inspired design elements.",
+        "4": "Commercial mall in Sheikh Zayed featuring a unique Spanish architectural style with diverse shopping outlets.",
+        "5": "Strategic commercial center in 6th of October City with premium retail spaces and entertainment options.",
+        "6": "Modern mall in October City offering a mix of retail, dining, and entertainment experiences.",
+        "7": "Innovative commercial mall in the New Administrative Capital with world-class facilities and premium brands."
+      }
+  },
+"introduction": {
+    "title": "Welcome to",
+    "titleHighlight": "Golden Mix",
+    "paragraph1": "We are proud to present Golden Mix, one of the largest and most established ready-mix concrete providers in Egypt with over 40 years of industry leadership. Specializing in premium ready-mix concrete, interlocking tiles, curb stone manufacturing, and pre-cast structures, we deliver unmatched quality and efficiency across the Egyptian construction market.",
+    "paragraph2": "With a portfolio of prestigious projects valued at over 1 Billion EGP, we've established ourselves as a cornerstone of Egypt's construction industry. Our collaborations with leading developers like Gates Development have resulted in landmark projects across Greater Cairo and Egypt's new urban communities, including prestigious developments in the New Administrative Capital and Sheikh Zayed.",
+    "stat1Value": "40+",
+    "stat1Label": "Years of Excellence",
+    "stat2Value": "1+ Billion",
+    "stat2Label": "EGP in Projects",
+    "stat3Value": "20",
+    "stat3Label": "Concrete Mixers",
+    "stat4Value": "100+",
+    "stat4Label": "Major Projects",
+    "aboutButton": "Learn More About Us"
+  },
+  "services": {
+      "subheading": "What We Offer",
+      "heading": "Our Featured",
+      "headingHighlight": "Services",
+      "description": "Golden Mix provides premium construction services with the highest quality standards to meet all your building requirements.",
+      "readyMixTitle": "Ready-Mix Concrete",
+      "readyMixDescription": "High-quality ready-mix concrete solutions that meet Egyptian code requirements and local market demands, delivered on time.",
+      "interlockTitle": "Interlock Manufacturing",
+      "interlockDescription": "Premium interlock pavers for driveways, walkways, and decorative areas with various patterns and colors.",
+      "precastTitle": "Pre-Cast Buildings",
+      "precastDescription": "Pre-cast building solutions offering faster construction times and superior quality for various architectural needs.",
+      "learnMore": "Learn More",
+      "viewAllServices": "View All Services"
+  },
+  "partners": {
+      "subheading": "Our Success Partners",
+      "heading": "Strategic",
+      "headingHighlight": "Partners",
+      "description": "Golden Mix collaborates with leading companies in the construction industry to deliver exceptional quality and innovation.",
+      "partnerGatesDescription": "A leader in modern architecture and development, Gates has worked with Golden Mix on numerous successful projects.",
+      "partnerNabnyDescription": "Nabny specializes in advanced construction technologies, providing innovative solutions for our concrete projects.",
+      "partnerUstazDescription": "Al-Ustaz brings decades of expertise in quality control and project management to ensure excellence in every project.",
+      "learnMore": "Learn More",
+      "viewAllPartners": "View All Partners",
+      "partnerZayaDescription": "Zaya Developments is known for its innovative residential projects and commitment to sustainable development practices.",
+      "partnerAfaaqDescription": "AFAAQ Developments brings a fresh perspective to the real estate market with distinctive and high-quality building designs.",
+      "partnerMadaenDescription": "Madaen Group combines expertise in urban planning with architectural excellence to create integrated communities.",
+      "partnerTatweerDescription": "Tatweer Misr is dedicated to creating vibrant lifestyle destinations that blend modern aesthetics with functional design."
+    },
+    "contact": {
+      "subheading": "Get In Touch",
+      "heading": "Ready to",
+      "headingHighlight": "Start Your Project?",
+      "description": "Contact our team for consultation on your construction needs. We're here to provide expert advice and premium solutions.",
+      "formTitle": "Send Us a Message",
+      "namePlaceholder": "Your Name",
+      "emailPlaceholder": "Your Email",
+      "messagePlaceholder": "Your Message",
+      "sendButton": "Send Message",
+      "phoneTitle": "Phone Number",
+      "emailTitle": "Email Address",
+      "addressTitle": "Office Location",
+      "addressContent": "Unit B2 – West Get Mall - Residential Separate - Sector The First District - 6 of October - Giza"
+    },
+    "history": {
+      "subheading": "Our Story",
+      "heading": "Company",
+      "headingHighlight": "History",
+      "overviewTitle": "Golden Mix: 4+ Decades of Excellence",
+      "overview1": "Golden Mix for Ready-Mix Concrete was established in 2014 as a specialized company in ready-mix concrete, interlock manufacturing, wall construction, and pre-cast buildings to serve and support the Egyptian market with the highest quality and efficiency in construction work in Greater Cairo and various other governorates of Egypt.",
+      "overview2": "The company's history spans over 4 decades of diverse achievements and pioneering projects currently supporting the Egyptian industrial market. The company's budget exceeds 500 million Egyptian pounds in various constructions and projects, and the company is registered with the National Research Center.",
+      "keyPoint1": "Specialized in high-quality ready-mix concrete solutions",
+      "keyPoint2": "Advanced interlock manufacturing capabilities",
+      "keyPoint3": "Expert pre-cast building solutions",
+      "keyPoint4": "Commitment to Egyptian construction standards",
+      "yearsExperience": "Years Experience",
+      "egyptianPounds": "EGP Budget",
+      "projectsCompleted": "Projects Completed",
+      "timelineTitle": "Our Journey Through the Years",
+      "milestone1Title": "Company Foundation",
+      "milestone1Description": "Golden Mix was established to provide premium ready-mix concrete solutions to the Egyptian market.",
+      "milestone2Title": "Expansion to Interlock Manufacturing",
+      "milestone2Description": "Added interlock manufacturing capabilities to our service portfolio.",
+      "milestone3Title": "Partnership with Industry Leaders",
+      "milestone3Description": "Formed strategic partnerships with Gates, Nabny, and Al-Ustaz to enhance service quality.",
+      "milestone4Title": "Entry into Pre-Cast Building Solutions",
+      "milestone4Description": "Expanded services to include pre-cast building solutions for faster construction.",
+      "milestone5Title": "New Administrative Capital Projects",
+      "milestone5Description": "Became a key supplier for multiple projects in Egypt's New Administrative Capital.",
+      "missionTitle": "Our Mission",
+      "missionText": "Golden Mix strives to lead in providing advanced concrete solutions that meet the highest quality standards according to the Egyptian code and local market requirements. We are committed to providing exceptional services to leading companies in the real estate development field, seeking to establish new standards for excellence and build strong partnerships that elevate the Egyptian client's experience and achieve their aspirations.",
+      "visionTitle": "Our Vision",
+      "visionText": "To be the leading provider of ready-mix concrete and construction solutions in Egypt, known for innovation, quality, and reliability in every project we undertake.",
+      "equipmentTitle": "Our Equipment Fleet",
+      "concretePump": "Concrete Pump",
+      "concreteMixer": "Concrete Mixer",
+      "loader": "Loader",
+      "quartzonTruck": "Quartzon Truck",
+      "doubleCapTruck": "Double Cap Truck"
+    },
+    "leadership": {
+    "subheading": "Our Leadership",
+    "heading": "Meet Our",
+    "headingHighlight": "Team",
+    "description": "Our leadership team brings decades of experience in the ready-mix concrete industry, committed to excellence and driving Golden Mix forward with innovation and integrity.",
+    "visionTitle": "Our Vision",
+    "visionText": "To be the first choice and leader in providing ready-mix concrete solutions across Egypt, through innovation and superior quality, with a commitment to meeting customer requirements and contributing to the development of the construction sector with modern and sustainable methods.",
+    "missionTitle": "Our Mission",
+    "missionText": "We strive to deliver high-quality concrete products using the latest technologies and best standards, with a commitment to deadlines and accuracy in implementation. We aim to build long-term relationships with our customers and partners through credibility and transparency. We also focus on achieving their aspirations and supporting their projects with exceptional quality and competitive prices.",
+    "leaderBio": {
+      "1": "Engineering leader with extensive experience in operations and project management across Egypt.",
+      "2": "Strategic board member guiding Golden Mix with expertise in business development and construction innovation.",
+      "3": "Financial expert and board member overseeing sales, procurement, and collection processes."
+    }
+  },
+  "registration": {
+    "subheading": "Company Registration",
+    "heading": "Our",
+    "headingHighlight": "Legal Documents",
+    "description": "Golden Mix Ready Mix Concrete is a fully registered company complying with all legal requirements in Egypt, providing you with the security and reliability you need for your projects.",
+    "taxCardTitle": "Tax Registration Card",
+    "companyName": "Company Name",
+    "goldenMixConcrete": "Golden Max for Ready Mix Concrete",
+    "taxNumber": "Tax Number",
+    "registrationNumber": "Registration Number",
+    "activityDate": "Activity Date",
+    "activityType": "Activity Type",
+    "concreteManufacturing": "Manufacturing concrete, cement and gypsum products",
+    "taxCardImage": "Tax Registration Card",
+    "commercialRegisterTitle": "Commercial Register",
+    "registerNumber": "Register Number",
+    "brand": "Brand Name",
+    "registrationDate": "Registration Date",
+    "businessType": "Business Type",
+    "limitedLiability": "Limited Liability Company",
+    "commercialRegisterImage": "Commercial Register Image",
+    "locationsTitle": "Our Locations",
+    "headquartersAddress": "Headquarters Address",
+    "headquartersAddressText": "Unit B2, West Gate Mall, Residential Separate, Sector 1, First District, 6th of October City, Giza, Egypt",
+    "plantLocations": "Plant Locations",
+    "plantLocation1": "Kilometer 45, Alexandria Desert Road, in front of Sphinx International Airport entrance, after El-Dabaa Road, inside Lugar project by Gates Real Estate Development",
+    "plantLocation2": "North Coast Road, KM 200, LYV project by Gates Real Estate Development",
+    "bankAccountTitle": "Bank Account Information",
+    "bankName": "Bank Name",
+    "commercialInternationalBank": "Commercial International Bank",
+    "branchName": "Branch Name",
+    "accountNumber": "Account Numbe"
+  },
+  "quality": {
+    "subheading": "Quality Assurance",
+    "heading": "Our",
+    "headingHighlight": "Quality Commitments",
+    "description": "Golden Mix Ready Mix Concrete is committed to delivering the highest quality concrete products through rigorous testing, strict standards compliance, and continuous improvement processes.",
+    "testingProcessesTab": "Testing Processes",
+    "certificationsTab": "Certifications & Standards",
+    "commitmentsTab": "Our Commitments",
+    
+    "aggregateTesting": "Aggregate Testing",
+    "aggregateTestingDesc": "Comprehensive testing of aggregates including gradation, specific gravity, absorption, and soundness to ensure optimal concrete performance.",
+    "mixDesign": "Mix Design",
+    "mixDesignDesc": "Scientific mix designs tailored to project requirements, tested for strength, durability, and workability.",
+    "strengthTesting": "Strength Testing",
+    "strengthTestingDesc": "Regular compressive strength tests on concrete cubes at 3, 7, and 28 days to verify design specifications.",
+    "plantCalibration": "Plant Calibration",
+    "plantCalibrationDesc": "Regular calibration of batching plants and equipment to ensure accurate measurements and consistent quality.",
+    
+    "egyptianCode": "Egyptian Code Compliance",
+    "egyptianCodeDesc": "All concrete mixes comply with Egyptian Code requirements for construction materials (ECP 203-2020).",
+    "astmDesc": "Standard specification for chemical admixtures for concrete, ensuring proper performance.",
+    "bsEnDesc": "European standards for testing aggregates properties including geometrical, physical and chemical characteristics.",
+    "qualityManagement": "Quality Management",
+    "qualityManagementDesc": "Systematic approach to quality control with documented procedures and regular audits.",
+    
+    "qualityAssurance": "Quality Assurance",
+    "qualityAssuranceDesc": "Comprehensive quality control measures at every stage from raw materials to final product delivery.",
+    "continuousImprovement": "Continuous Improvement",
+    "continuousImprovementDesc": "Ongoing evaluation and enhancement of processes to achieve higher quality standards.",
+    "customerSatisfaction": "Customer Satisfaction",
+    "customerSatisfactionDesc": "Dedicated to meeting and exceeding customer expectations through quality products and services.",
+    "environmentalResponsibility": "Environmental Responsibility",
+    "environmentalResponsibilityDesc": "Sustainable practices in production and operations to minimize environmental impact.",
+    
+    "certificationEvidence": "Our Certifications",
+    "certificationEvidenceAlt": "Quality certifications and test reports",
+    
+    "qualityControlProcess": "Quality Control Process",
+    "qualityControlStep1": "Raw Material Inspection",
+    "qualityControlStep1Desc": "Thorough testing of all incoming materials including aggregates, cement, and admixtures.",
+    "qualityControlStep2": "Production Monitoring",
+    "qualityControlStep2Desc": "Continuous monitoring of batching process and concrete properties during production.",
+    "qualityControlStep3": "Final Product Testing",
+    "qualityControlStep3Desc": "Rigorous testing of hardened concrete for strength and durability before delivery."
+  },
+  "readymix": {
+    "title": "Ready-mix",
+    "headingHighlight": "Concrete Solutions",
+    "subtitle": "High-quality concrete for all your construction needs",
+    "description": "Golden Mix provides premium ready-mix concrete solutions that meet the highest Egyptian standards and market requirements. Our state-of-the-art facilities and experienced team ensure precision in mixing and timely delivery for projects of all sizes.",
+    "feature1": "Custom concrete mixes for specific project requirements",
+    "feature2": "Quality assured through rigorous testing and certification",
+    "feature3": "On-time delivery with our fleet of mixer trucks",
+    "feature4": "Advanced batching plants for consistent quality",
+    "feature5": "Compliant with Egyptian construction codes",
+    "cta": "Request a Quote"
+  },
+  "custommixtures": {
+    "title": "Custom",
+    "headingHighlight": "Concrete Mixtures",
+    "subtitle": "Tailored solutions for your specific needs",
+    "description": "We specialize in designing and delivering custom concrete mixtures to meet your specific project requirements. Our experienced team can formulate concrete with special properties for any construction challenge.",
+    "imageAlt": "Custom concrete mixing process",
+    "imageBadge": "Specialized Solutions",
+    "imageTitle": "Advanced concrete formulation laboratory",
+    "cta": "Discuss Your Project",
+    "types": {
+      "standard": {
+        "title": "Standard Mixtures",
+        "description": "Reliable concrete mixtures for general construction purposes"
+      },
+      "highStrength": {
+        "title": "High-Strength Formulations",
+        "description": "Specialized mixtures for projects requiring superior structural integrity"
+      },
+      "quickSetting": {
+        "title": "Quick-Setting Concrete",
+        "description": "Fast-setting solutions for time-sensitive projects"
+      },
+      "highPerformance": {
+        "title": "High-Performance Concrete",
+        "description": "Advanced mixtures with enhanced durability and performance"
+      },
+      "certified": {
+        "title": "Quality Certified",
+        "description": "All mixtures tested and certified according to Egyptian standards"
+      }
+    }
+  },
+  "precast": {
+    "title": "Pre-Cast",
+    "headingHighlight": "Products",
+    "subtitle": "Ready-made construction elements",
+    "description": "Our pre-cast concrete products offer superior quality, consistency, and faster installation for your construction projects. We manufacture a wide range of pre-cast elements to suit your specific requirements.",
+    "keyFeatures": "Key Features",
+    "learnMore": "Contact Us",
+    "products": {
+      "walls": {
+        "tabName": "Pre-Cast Walls",
+        "title": "Pre-Cast Walls",
+        "badge": "Structural",
+        "imageAlt": "Pre-cast concrete wall panels",
+        "imageSrc": "/images/precastwall.jpg",
+        "shortDescription": "Factory-made wall elements for rapid construction",
+        "fullDescription": "Our pre-cast wall panels are manufactured in controlled factory conditions to ensure consistent quality. They offer rapid installation, superior insulation properties, and excellent durability.",
+        "features": {
+          "feature1": "High strength and durability",
+          "feature2": "Faster installation compared to traditional construction",
+          "feature3": "Precision manufacturing for consistent quality"
+        }
+      },
+      "interlock": {
+        "tabName": "Interlock Pavers",
+        "title": "Interlock Pavers",
+        "badge": "Decorative",
+        "imageAlt": "Concrete interlock pavers",
+        "imageSrc": "/images/interlockpaversnew.jpg",
+        "shortDescription": "Versatile paving solutions for various applications",
+        "fullDescription": "Our interlock pavers provide aesthetic and durable solutions for walkways, driveways, and public spaces. Available in various shapes, colors, and patterns to suit any design requirement.",
+        "features": {
+          "feature1": "Multiple patterns and color options",
+          "feature2": "High load-bearing capacity",
+          "feature3": "Easy maintenance and replacement"
+        }
+      },
+      "curbstone": {
+        "tabName": "Curbstones",
+        "title": "Curbstones",
+        "badge": "Infrastructure",
+        "imageAlt": "Concrete curbstones",
+        "imageSrc": "/images/curbstonenew.jpg",
+        "shortDescription": "Edge restraints for roads and landscaping",
+        "fullDescription": "Our curbstones provide strong and durable edge restraints for roads, parking lots, and landscape features. Manufactured to strict quality standards for long-term performance.",
+        "features": {
+          "feature1": "High resistance to traffic and weather conditions",
+          "feature2": "Precise dimensions for easy installation",
+          "feature3": "Available in various profiles and finishes"
+        }
+      },
+      "custom": {
+        "tabName": "Custom Elements",
+        "title": "Custom Pre-Cast Elements",
+        "badge": "Specialized",
+        "imageAlt": "Custom pre-cast concrete elements",
+        "imageSrc": "/images/customprecast.webp",
+        "shortDescription": "Tailored solutions for specific project needs",
+        "fullDescription": "We specialize in creating custom pre-cast elements designed to your exact specifications. Our manufacturing capabilities allow us to produce unique shapes, sizes, and finishes for any project requirement.",
+        "features": {
+          "feature1": "Designed to your exact specifications",
+          "feature2": "Full engineering support and consultation",
+          "feature3": "Quality control at every production stage"
+        }
+      }
+    }
+  },
+  "projectsPage": {
+    "title": "Projects - Golden Mix",
+    "subtitle": "Discover our successful concrete projects and construction solutions"
+  },
+  "projectsShowcase": {
+    "subtitle": "Our Portfolio",
+    "title": "Discover Our",
+    "headingHighlight": "Projects",
+    "description": "Browse through our diverse portfolio of successful projects, showcasing over 40 years of excellence in construction and real estate development.",
+    "searchPlaceholder": "Search projects by name or client",
+    "categories": {
+      "all": "All Projects",
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "mall": "Malls",
+      "compound": "Compounds"
+    },
+    "client": "Client",
+    "viewDetails": "View Details",
+    "noProjectsFound": "No projects found matching your criteria.",
+    "resetFilters": "Reset Filters",
+    "paginationText": "Page {current} of {total}"
+  },
+  "featuredProjects": {
+    "subtitle": "Flagship Developments",
+    "title": "Our",
+    "headingHighlight": "Showcase Projects",
+    "description": "Discover our most significant and innovative construction projects that demonstrate our expertise and commitment to excellence in the industry.",
+    "categories": {
+      "compound": "Residential Compound",
+      "commercial": "Commercial",
+      "residential": "Residential",
+      "mall": "Shopping Mall"
+    },
+    "client": "Client",
+    "location": "Location",
+    "year": "Completion Year",
+    "category": "Project Type",
+    "viewProjectDetails": "View Project Details"
+  },
+    "contactPage": {
+      "title": "Contact Us - Golden Mix",
+      "subtitle": "Get in touch with Golden Mix for concrete solutions, construction inquiries, and project consultation"
+    },
+    "officeLocation": {
+    "subtitle": "Our Headquarters",
+    "title": "Main",
+    "headingHighlight": "Office",
+    "description": "Visit our headquarters for business inquiries, consultations, and project discussions.",
+    "officeHeading": "Administration Office",
+    "addressLabel": "Address",
+    "officeAddress": "Unit B2, West Gate Mall, First District, 6th of October City",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Working Hours",
+    "workingHours": "Sunday - Thursday: 9:00 AM - 5:00 PM",
+    "directionsButton": "Get Directions"
+  },
+  "contactForm": {
+    "title": "Get in Touch",
+    "subtitle": "Fill out the form below and our team will get back to you within 24 hours.",
+    "nameLabel": "Your Name",
+    "namePlaceholder": "Enter your full name",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Enter your email address",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "Enter your phone number",
+    "subjectLabel": "Inquiry Subject",
+    "subjectPlaceholder": "Select an inquiry subject",
+    "subjectOptions": {
+      "concrete": "Ready-Mix Concrete Inquiry",
+      "project": "Project Collaboration",
+      "consultation": "Technical Consultation",
+      "support": "Customer Support",
+      "other": "Other Inquiry"
+    },
+    "messageLabel": "Your Message",
+    "messagePlaceholder": "Tell us about your project or inquiry...",
+    "submitButton": "Send Message",
+    "submitting": "Sending...",
+    "successMessage": "Your message has been sent successfully. We will contact you shortly.",
+    "errorMessage": "There was an error sending your message. Please try again."
+  },
+  "plantLocations": {
+    "subtitle": "Our Production Facilities",
+    "title": "Plant",
+    "headingHighlight": "Locations",
+    "description": "Our strategically located concrete plants ensure efficient delivery and quality service across various regions.",
+    "plantLabel": "Production Plant",
+    "addressLabel": "Location Address",
+    "directionsButton": "Get Directions",
+    "plantCount": "Plant {current} of {total}"
+  },
+  "contactHero": {
+    "subtitle": "We're Here to Help",
+    "title": "Get in",
+    "titleHighlight": "Touch",
+    "description": "Have questions about our concrete products or services? Need a quote for your construction project? Our team is ready to assist you.",
+    "phone": "Phone",
+    "email": "Email"
+  }
+}
