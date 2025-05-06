@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 const ContactCTA: React.FC = () => {

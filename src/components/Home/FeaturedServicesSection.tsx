@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Building, Layers, Truck } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 const FeaturedServicesSection: React.FC = () => {
   const t = useTranslations('services');

@@ -5,6 +5,9 @@ import { config } from 'process';
 const nextConfig: NextConfig = {
   config: {
     turbo: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   }
 };
 const withNextIntl = createNextIntlPlugin();

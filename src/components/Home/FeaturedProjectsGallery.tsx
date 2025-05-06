@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { ArrowRight, ArrowLeft, MapPin, Star } from 'lucide-react';
 
 const FeaturedProjectsGallery: React.FC = () => {
