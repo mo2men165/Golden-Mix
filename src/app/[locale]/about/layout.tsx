@@ -6,18 +6,15 @@ export const metadata: Metadata = {
   description: 'Learn about Golden Mix, our history, mission, and values',
 };
 
-interface LayoutParams {
-  locale: string;
-}
-
-export default function AboutLayout({
+export default async function AboutLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: LayoutParams;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  // Await the params to get the locale
+  const { locale } = await params;
   
   // Validate that the locale is supported
   const locales = ['en', 'ar'];

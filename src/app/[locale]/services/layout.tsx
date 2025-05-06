@@ -6,14 +6,15 @@ export const metadata: Metadata = {
   description: 'Explore Golden Mix services including ready mix concrete, interlocking, precast concrete, and more',
 };
 
-export default function ServicesLayout({
+export default async function ServicesLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  // Await the params to get the locale
+  const { locale } = await params;
   
   // Validate that the locale is supported
   const locales = ['en', 'ar'];

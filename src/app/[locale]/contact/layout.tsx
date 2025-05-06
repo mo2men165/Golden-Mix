@@ -6,14 +6,15 @@ export const metadata: Metadata = {
   description: 'Get in touch with Golden Mix for concrete solutions, construction inquiries, and project consultation',
 };
 
-export default function ContactLayout({
+export default async function ContactLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  // Await the params to get the locale
+  const { locale } = await params;
   
   // Validate that the locale is supported
   const locales = ['en', 'ar'];
