@@ -4,7 +4,12 @@ import PartnersSection from '@/components/Home/PartnersSection';
 import ProjectsShowcase from '@/components/projects/ProjectShowcase';
 import FeaturedProjects from '@/components/projects/FeaturedProjects';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ locale: string }> 
+}) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'projectsPage' });
 
   return {

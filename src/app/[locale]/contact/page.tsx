@@ -4,7 +4,12 @@ import OfficeLocation from '@/components/Contact/OfficeLocation';
 import PlantLocations from '@/components/Contact/PlantLocations';
 import ContactHero from '@/components/Contact/ContactHero';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ locale: string }> 
+}) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'contactPage' });
 
   return {
