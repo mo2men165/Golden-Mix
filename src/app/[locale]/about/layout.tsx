@@ -6,15 +6,19 @@ export const metadata: Metadata = {
   description: 'Learn about Golden Mix, our history, mission, and values',
 };
 
-type LayoutProps = {
-  children: React.ReactNode;
-  params: { locale: string };
-};
+interface LayoutParams {
+  locale: string;
+}
 
 export default function AboutLayout({
   children,
-  params: { locale }
-}: LayoutProps) {
+  params,
+}: {
+  children: React.ReactNode;
+  params: LayoutParams;
+}) {
+  const { locale } = params;
+  
   // Validate that the locale is supported
   const locales = ['en', 'ar'];
   if (!locales.includes(locale)) {

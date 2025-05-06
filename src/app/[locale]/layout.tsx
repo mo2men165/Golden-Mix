@@ -22,15 +22,15 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-type RootLayoutProps = {
-  children: React.ReactNode;
-  params: { locale: string };
-};
-
 export default async function RootLayout({
   children,
-  params: { locale }
-}: RootLayoutProps) {
+  params,
+}: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
+  const { locale } = params;
+  
   // Validate that the locale is supported
   if (!locales.includes(locale)) {
     notFound();
