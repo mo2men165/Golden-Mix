@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
@@ -22,13 +22,15 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+type RootLayoutProps = {
+  children: React.ReactNode;
+  params: { locale: string };
+};
+
 export default async function RootLayout({
   children,
   params: { locale }
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
+}: RootLayoutProps) {
   // Validate that the locale is supported
   if (!locales.includes(locale)) {
     notFound();
