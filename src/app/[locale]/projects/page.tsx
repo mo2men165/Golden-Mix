@@ -23,7 +23,7 @@ export default function Projects() {
     <>
     <ProjectsShowcase />
     <FeaturedProjects />
-    {/* <PartnersSection /> */}
+    <PartnersSection />
     <ContactCTA />
     </>
   );
