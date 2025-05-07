@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -9,62 +9,46 @@ const PartnersSection: React.FC = () => {
   const t = useTranslations('partners');
   const locale = useLocale();
   const isRtl = locale === 'ar';
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Check for mobile devices
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsMobile(window.innerWidth < 768);
-      
-      const handleResize = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-      
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []);
-
-  // Simplified animation variants for mobile
+  // Animation variants (slightly simplified for performance)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: isMobile ? 0 : 0.2,
-        delayChildren: isMobile ? 0 : 0.3,
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: isMobile ? 0 : 20 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: isMobile ? 0.3 : 0.7,
+        duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1.0],
       },
     },
   };
 
   const partnerVariants = {
-    hidden: { opacity: 0, scale: isMobile ? 1 : 0.8 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: isMobile ? 0.3 : 0.5,
+        duration: 0.5,
         ease: "easeOut",
       },
     },
     hover: {
-      scale: isMobile ? 1 : 1.05,
-      y: isMobile ? 0 : -10,
+      scale: 1.03,
+      y: -5,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
       },
     },
   };
@@ -123,24 +107,15 @@ const PartnersSection: React.FC = () => {
 
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden relative" dir={isRtl ? 'rtl' : 'ltr'}>
-      {/* Only show background patterns on desktop */}
-      {!isMobile && (
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          {/* Simple diagonal pattern instead of SVGs */}
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: 'linear-gradient(45deg, var(--golden) 1px, transparent 1px)', 
-            backgroundSize: '40px 40px',
-            opacity: 0.1
-          }} />
-          
-          {/* Simple dots pattern instead of complex SVGs */}
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(var(--golden) 1px, transparent 1px)',
-            backgroundSize: '20px 20px',
-            opacity: 0.08
-          }} />
-        </div>
-      )}
+      {/* Simplified Background Pattern */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-15">
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--golden)] via-transparent to-[var(--golden)]" />
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(var(--golden) 1px, transparent 1px)',
+          backgroundSize: '20px 20px',
+          opacity: 0.08
+        }} />
+      </div>
       
       <div className="container max-w-7xl mx-auto px-4 relative z-10">
         <motion.div
@@ -148,7 +123,7 @@ const PartnersSection: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "0px 0px -100px 0px" }} // Adjusted margin
         >
           <motion.p
             className="text-[var(--golden)] font-medium mb-2"
@@ -166,7 +141,7 @@ const PartnersSection: React.FC = () => {
               className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-[var(--golden)]"
               initial={{ width: 0, left: isRtl ? '70%' : '30%' }}
               whileInView={{ width: 80, left: '50%' }}
-              transition={{ duration: isMobile ? 0.4 : 0.8, delay: isMobile ? 0.2 : 0.8 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
               viewport={{ once: true }}
             />
           </motion.h2>
@@ -178,26 +153,30 @@ const PartnersSection: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        >
           {partners.map((partner, index) => (
             <motion.div
               key={partner.id}
               className="rounded-xl overflow-hidden shadow-lg border border-gray-100 flex flex-col items-center bg-white h-full"
               variants={partnerVariants}
-              initial="hidden"
-              whileInView="visible"
-              whileHover={isMobile ? undefined : "hover"}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ delay: isMobile ? 0 : Math.min(index * 0.05, 0.3) }}
+              whileHover="hover"
+              custom={index}
+              transition={{ delay: index * 0.1 }}
             >
               <div className="w-full h-56 relative mb-0 bg-gray-700 p-8 flex items-center justify-center">
                 <Image
                   src={partner.logo}
                   alt={isRtl ? partner.nameAr : partner.name}
-                  width={200}
-                  height={150}
-                  className="object-contain p-5"
-                  loading={index < 3 ? "eager" : "lazy"}
+                  fill
+                  className="object-contain p-4"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={index < 3} // Only prioritize first few images
                 />
               </div>
               
@@ -214,7 +193,7 @@ const PartnersSection: React.FC = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
