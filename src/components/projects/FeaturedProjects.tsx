@@ -135,7 +135,7 @@ const FeaturedProjects: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none opacity-5">
         <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-gray-100 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-1/2">
-          <div className="w-full h-full bg-[url('/images/pattern-bg.png')] bg-repeat opacity-10" />
+          <div className="w-full h-full bg-repeat opacity-10" />
         </div>
       </div>
 
