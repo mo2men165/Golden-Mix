@@ -315,7 +315,7 @@ const FeaturedServicesSection: React.FC = () => {
         >
           <Link href="/services">
             <motion.button
-              className="relative px-8 py-3 bg-white border border-[var(--golden)] text-[var(--golden)] font-medium rounded-lg overflow-hidden group"
+              className="relative px-8 py-3 cursor-pointer hover:bg-golden transition-all duration-500 bg-white border border-[var(--golden)] text-[var(--golden)] font-medium rounded-lg overflow-hidden group"
               whileHover={{ boxShadow: "0 5px 15px rgba(0,0,0,0.1)" }}
             >
               <span className="relative z-10 group-hover:text-white transition-colors duration-300">

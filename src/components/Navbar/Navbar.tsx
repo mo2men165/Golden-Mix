@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
@@ -114,7 +115,7 @@ const Navbar = () => {
 
   return (
     <header className={getNavbarClass()}>
-      <div className="container max-w-6xl mx-auto px-4">
+      <div className="container  mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Left - Logo */}
           <div className="flex-shrink-0">
@@ -132,7 +133,7 @@ const Navbar = () => {
           </div>
 
           {/* Middle - Navigation Links (Desktop) */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden xl:flex items-center gap-10">
             {navLinks.map((link) => {
               const active = isLinkActive(link.url);
               return (
@@ -154,7 +155,7 @@ const Navbar = () => {
           </nav>
 
           {/* Right - Button & Language Switcher */}
-          <div className="hidden md:flex items-center gap-5">
+          <div className="hidden xl:flex items-center gap-5">
             <Link 
               href="/contact" 
               locale={locale}
@@ -167,7 +168,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button 
-            className={`md:hidden p-2 rounded-full transition-all duration-300 ${
+            className={`xl:hidden p-2 rounded-full transition-all duration-300 ${
               isHomePage && isHeroSection 
                 ? 'text-white hover:bg-white/10' 
                 : 'text-[#C19434] hover:bg-gray-100'

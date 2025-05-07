@@ -95,7 +95,7 @@ const ContactCTA: React.FC = () => {
       
       {/* Background pattern */}
       <motion.div 
-        className="absolute inset-0 bg-[url('/images/pattern.png')] bg-repeat opacity-10 z-0"
+        className="absolute inset-0 bg-repeat opacity-10 z-0"
         variants={fadeInVariants}
         initial="hidden"
         whileInView="visible"

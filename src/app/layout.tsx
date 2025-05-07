@@ -19,11 +19,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params?: { locale?: string };
 }>) {
+  // Default to 'en' if locale is not available
+  const locale = params?.locale || 'en';
+  const isRtl = locale === 'ar';
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

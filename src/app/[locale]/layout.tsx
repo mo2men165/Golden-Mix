@@ -22,7 +22,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
@@ -44,16 +44,12 @@ export default async function RootLayout({
   const isRtl = locale === 'ar';
 
   return (
-    <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
-      <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="">{children}</main>
-            <Footer />
-          </div>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <div className={`flex flex-col min-h-screen ${inter.className}`} dir={isRtl ? 'rtl' : 'ltr'}>
+        <Navbar />
+        <main className="">{children}</main>
+        <Footer />
+      </div>
+    </NextIntlClientProvider>
   );
 }

@@ -448,12 +448,12 @@ const FeaturedProjectsGallery: React.FC = () => {
         >
           <Link href="/projects">
             <motion.button
-              className="px-8 py-3 bg-transparent border-2 border-[var(--golden)] text-[var(--golden)] font-medium rounded-lg transition-all duration-300 relative overflow-hidden group"
+              className="px-8 py-3 cursor-pointer bg-transparent border-2 border-[var(--golden)] text-[var(--golden)] font-medium rounded-lg transition-all duration-300 relative overflow-hidden group"
               whileHover={{ 
                 boxShadow: '0 0 20px rgba(218,165,32,0.4)'
               }}
             >
-              <span className="relative z-10 group-hover:text-gray-900 transition-colors duration-300">
+              <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                 {t('viewAllProjects')}
               </span>
               <motion.div 
