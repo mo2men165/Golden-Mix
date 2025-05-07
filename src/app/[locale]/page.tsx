@@ -29,7 +29,7 @@ export default function Home() {
         <IntroductionSection />
         <FeaturedServicesSection />
         <FeaturedProjectsGallery />
-        <PartnersSection />
+        {/* <PartnersSection /> */}
         <ContactCTA />
       </AutoScrollWrapper>
     </>
