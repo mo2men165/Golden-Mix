@@ -6,91 +6,50 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { Search, X, ChevronRight, ChevronLeft } from 'lucide-react';
+import { getProjects } from '@/lib/queries';
+import { urlFor } from '@/lib/sanity-image';
+import { Project } from '@/types/project';
 
-// Define project interface
-interface ProjectType {
-  id: number;
-  title: string;
-  titleAr: string;
-  category: string;
-  image: string;
-  client: string;
+interface AllProjectsProps {
+  projects?: Project[];
 }
 
-const ProjectsShowcase: React.FC = () => {
-  const t = useTranslations('projectsShowcase');
+const AllProjects: React.FC<AllProjectsProps> = ({ projects: initialProjects }) => {
+  const t = useTranslations('AllProjects');
   const locale = useLocale();
   const isRtl = locale === 'ar';
   
   // Project categories
   const categories: string[] = ['all', 'residential', 'commercial', 'mall', 'compound'];
   
+  // State for projects data
+  const [projects, setProjects] = useState<Project[]>(initialProjects || []);
+  const [loading, setLoading] = useState(!initialProjects);
+  
   // State for active category and search
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [filteredProjects, setFilteredProjects] = useState<ProjectType[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const projectsPerPage: number = 6;
 
-  // Projects data (would typically come from an API or CMS)
-  const projects: ProjectType[] = [
-    {
-      id: 1,
-      title: 'VENIA New Capital',
-      titleAr: 'كومبوند فينيا العاصمة الإدارية الجديدة',
-      category: 'compound',
-      image: '/images/venia.jpg',
-      client: 'Gates Development',
-    },
-    {
-      id: 2,
-      title: 'Compound Lugar New Zayed',
-      titleAr: 'كمبوند لوجار زايد الجديدة',
-      category: 'compound',
-      image: '/images/lugar.webp',
-      client: 'ZAYA Developments',
-    },
-    {
-      id: 3,
-      title: 'Catalan New Capital',
-      titleAr: 'مشروع كتالان العاصمة الإدارية الجديدة',
-      category: 'residential',
-      image: '/images/catalan.jpg',
-      client: 'AFAAQ Developments',
-    },
-    {
-      id: 4,
-      title: 'Plaza Espana Sheikh Zayed',
-      titleAr: 'مول بلازا اسبانيا الشيخ زايد',
-      category: 'commercial',
-      image: '/images/plaza.jpg',
-      client: 'Madaen Group',
-    },
-    {
-      id: 5,
-      title: 'Mall West Gate October',
-      titleAr: 'مول ويست جيت 6 أكتوبر',
-      category: 'mall',
-      image: '/images/westgate.jpg',
-      client: 'Tatweer Misr',
-    },
-    {
-      id: 6,
-      title: 'Mall Space October',
-      titleAr: 'مول سبيس أكتوبر',
-      category: 'mall',
-      image: '/images/spaceMall.webp',
-      client: 'Nabny',
-    },
-    {
-      id: 7,
-      title: 'AUDAZ New Capital',
-      titleAr: 'أوداز مول لوجاز بالعاصمة الإدارية الجديدة',
-      category: 'mall',
-      image: '/images/audaz.webp',
-      client: 'Alostaz Development',
-    },
-  ];
+  // Fetch projects from Sanity if not provided as props
+  useEffect(() => {
+    if (!initialProjects) {
+      const fetchProjects = async () => {
+        try {
+          const data = await getProjects();
+          setProjects(data);
+        } catch (error) {
+          console.error('Error fetching projects:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchProjects();
+    }
+  }, [initialProjects]);
 
   // Animation variants
   const containerVariants = {
@@ -149,15 +108,16 @@ const ProjectsShowcase: React.FC = () => {
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       results = results.filter(project => 
-        project.title.toLowerCase().includes(query) || 
-        project.titleAr.toLowerCase().includes(query) ||
-        project.client.toLowerCase().includes(query)
+        project.nameEn.toLowerCase().includes(query) || 
+        project.nameAr.toLowerCase().includes(query) ||
+        project.client.toLowerCase().includes(query) ||
+        project.location.toLowerCase().includes(query)
       );
     }
     
     setFilteredProjects(results);
     setCurrentPage(1); // Reset to first page on filter change
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, projects]);
 
   // Calculate pagination
   const indexOfLastProject = currentPage * projectsPerPage;
@@ -177,6 +137,42 @@ const ProjectsShowcase: React.FC = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-16 md:pt-50 pt-40 md:py-24 bg-gray-50">
+        <div className="container max-w-7xl mx-auto px-4 text-center">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-4"></div>
+            <div className="h-12 bg-gray-200 rounded w-64 mx-auto mb-8"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-white rounded-xl overflow-hidden shadow-lg">
+                  <div className="h-56 bg-gray-200"></div>
+                  <div className="p-6">
+                    <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Empty state
+  if (!projects.length) {
+    return (
+      <section className="py-16 md:pt-50 pt-40 md:py-24 bg-gray-50">
+        <div className="container max-w-7xl mx-auto px-4 text-center">
+          <p className="text-gray-600">No projects available at the moment.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 md:pt-50 pt-40 md:py-24 bg-gray-50 relative overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}>
@@ -293,15 +289,15 @@ const ProjectsShowcase: React.FC = () => {
           >
             {currentProjects.map((project) => (
               <motion.div
-                key={project.id}
+                key={project._id}
                 className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100"
                 variants={cardVariants}
                 whileHover="hover"
               >
                 <div className="relative h-56 overflow-hidden">
                   <Image
-                    src={project.image}
-                    alt={isRtl ? project.titleAr : project.title}
+                    src={urlFor(project.image).url()}
+                    alt={isRtl ? project.nameAr : project.nameEn}
                     fill
                     className="object-cover transition-transform duration-500 hover:scale-110"
                   />
@@ -311,24 +307,14 @@ const ProjectsShowcase: React.FC = () => {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-800 mb-2">
-                    {isRtl ? project.titleAr : project.title}
+                    {isRtl ? project.nameAr : project.nameEn}
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 mb-2">
                     {t('client')}: {project.client}
                   </p>
-                  <Link href={`/projects/${project.id}`}>
-                    <motion.button
-                      className="flex items-center text-[var(--golden)] font-medium hover:text-[var(--golden-dark)]"
-                      whileHover={{ x: isRtl ? -5 : 5 }}
-                    >
-                      {t('viewDetails')}
-                      {isRtl ? (
-                        <ChevronLeft size={18} className="ml-1" />
-                      ) : (
-                        <ChevronRight size={18} className="ml-1" />
-                      )}
-                    </motion.button>
-                  </Link>
+                  <p className="text-gray-500 text-sm mb-4">
+                    Location: <span className='font-bold text-black'>{project.location}</span>
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -384,7 +370,7 @@ const ProjectsShowcase: React.FC = () => {
               variants={itemVariants}
             >
               <span className="text-gray-700">
-                {t('paginationText', { current: currentPage, total: totalPages })}
+                {currentPage} of {totalPages}
               </span>
             </motion.div>
             
@@ -409,4 +395,4 @@ const ProjectsShowcase: React.FC = () => {
   );
 };
 
-export default ProjectsShowcase;
+export default AllProjects;

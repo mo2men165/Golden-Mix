@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import ContactCTA from '@/components/Home/ContactCTA';
 import PartnersSection from '@/components/Home/PartnersSection';
-import ProjectsShowcase from '@/components/projects/ProjectShowcase';
+import AllProjects from '@/components/projects/AllProjects';
 import FeaturedProjects from '@/components/projects/FeaturedProjects';
 
 export async function generateMetadata({ 
@@ -21,7 +21,7 @@ export async function generateMetadata({
 export default function Projects() {
   return (
     <>
-    <ProjectsShowcase />
+    <AllProjects />
     <FeaturedProjects />
     <PartnersSection />
     <ContactCTA />

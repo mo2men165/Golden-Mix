@@ -1,59 +1,36 @@
+// src/lib/queries.ts
 import { client } from '@/sanity/client';
-import { Page, Service, Project, Category, Settings } from '@/types';
+import { Project } from '@/types/project';
+import { Partner } from '@/types/partner';
 
-// Fetch site settings
-export async function getSettings(): Promise<Settings> {
-  return client.fetch(`*[_type == "settings"][0]`);
+export async function getProjects(): Promise<Project[]> {
+  const query = `*[_type == "project"] | order(order asc, _createdAt desc) {
+    _id,
+    nameEn,
+    nameAr,
+    slug,
+    image,
+    location,
+    projectDescriptionEN,
+    projectDescriptionAR,
+    order,
+    category,
+    client
+  }`;
+  
+  return client.fetch<Project[]>(query);
 }
 
-// Fetch a page by slug
-export async function getPageBySlug(slug: string): Promise<Page> {
-  return client.fetch(`
-    *[_type == "page" && slug.current == $slug][0]
-  `, { slug });
-}
-
-// Fetch all services
-export async function getAllServices(): Promise<Service[]> {
-  return client.fetch(`
-    *[_type == "service"] | order(title.en asc)
-  `);
-}
-
-// Fetch a service by slug
-export async function getServiceBySlug(slug: string): Promise<Service> {
-  return client.fetch(`
-    *[_type == "service" && slug.current == $slug][0]
-  `, { slug });
-}
-
-// Fetch all projects
-export async function getAllProjects(): Promise<Project[]> {
-  return client.fetch(`
-    *[_type == "project"] | order(completedAt desc)
-  `);
-}
-
-// Fetch a project by slug
-export async function getProjectBySlug(slug: string): Promise<Project> {
-  return client.fetch(`
-    *[_type == "project" && slug.current == $slug][0]{
-      ...,
-      category->
-    }
-  `, { slug });
-}
-
-// Fetch projects by category
-export async function getProjectsByCategory(categoryId: string): Promise<Project[]> {
-  return client.fetch(`
-    *[_type == "project" && references($categoryId)] | order(completedAt desc)
-  `, { categoryId });
-}
-
-// Fetch all categories
-export async function getAllCategories(): Promise<Category[]> {
-  return client.fetch(`
-    *[_type == "category"] | order(title.en asc)
-  `);
+export async function getPartners(): Promise<Partner[]> {
+  const query = `*[_type == "partner"] | order(order asc, _createdAt desc) {
+    _id,
+    name,
+    nameAr,
+    logo,
+    descriptionEn,
+    descriptionAr,
+    order
+  }`;
+  
+  return client.fetch<Partner[]>(query);
 }

@@ -6,13 +6,42 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { ArrowRight, ArrowLeft, MapPin, Star } from 'lucide-react';
+import { getProjects } from '@/lib/queries';
+import { urlFor } from '@/lib/sanity-image';
+import { Project } from '@/types/project';
 
-const FeaturedProjectsGallery: React.FC = () => {
+interface FeaturedProjectsGalleryProps {
+  projects?: Project[];
+}
+
+const FeaturedProjectsGallery: React.FC<FeaturedProjectsGalleryProps> = ({ 
+  projects: initialProjects 
+}) => {
   const t = useTranslations('projects');
   const locale = useLocale();
   const isRtl = locale === 'ar';
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [projects, setProjects] = useState<Project[]>(initialProjects || []);
+  const [loading, setLoading] = useState(!initialProjects);
+  
+  // Fetch projects from Sanity only if not provided as props
+  useEffect(() => {
+    if (!initialProjects) {
+      const fetchProjects = async () => {
+        try {
+          const data = await getProjects();
+          setProjects(data);
+        } catch (error) {
+          console.error('Error fetching projects:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchProjects();
+    }
+  }, [initialProjects]);
   
   // Animation variants
   const containerVariants = {
@@ -38,59 +67,6 @@ const FeaturedProjectsGallery: React.FC = () => {
     },
   };
 
-  // Project data based on the screenshot
-  const projects = [
-    {
-      id: 1,
-      nameEn: "VENIA New Capital",
-      nameAr: "كمبوند فينيا العاصمة الإدارية الجديد",
-      image: "/images/venia.jpg",
-      location: "New Capital",
-    },
-    {
-      id: 2,
-      nameEn: "Compound Lugar New Zayed",
-      nameAr: "كمبوند لوجار زايد الجديدة",
-      image: "/images/lugar.webp",
-      location: "New Zayed",
-    },
-    {
-      id: 3,
-      nameEn: "Catalan New Capital",
-      nameAr: "مشروع كتالان العاصمة الادارية الجديدة",
-      image: "/images/catalan.jpg",
-      location: "New Capital",
-    },
-    {
-      id: 4,
-      nameEn: "Plaza Espana Sheikh Zayed",
-      nameAr: "مول بلازا اسبانيا الشيخ زايد",
-      image: "/images/plaza.jpg",
-      location: "Sheikh Zayed",
-    },
-    {
-      id: 5,
-      nameEn: "Mall West Gate October",
-      nameAr: "مول ويست جيت 6 أكتوبر",
-      image: "/images/westgate.jpg",
-      location: "6th October",
-    },
-    {
-      id: 6,
-      nameEn: "Mall Space October",
-      nameAr: "مول سبيس أكتوبر",
-      image: "/images/spaceMall.webp",
-      location: "October",
-    },
-    {
-      id: 7,
-      nameEn: "AUDAZ New Capital",
-      nameAr: "مول اوداز بالعاصمة الإدارية الجديدة",
-      image: "/images/audaz.webp",
-      location: "New Capital",
-    },
-  ];
-
   const projectsPerPage = 3;
   const totalPages = Math.ceil(projects.length / projectsPerPage);
 
@@ -115,16 +91,43 @@ const FeaturedProjectsGallery: React.FC = () => {
   const [stars] = useState(() => 
     Array.from({ length: 15 }, (_, i) => ({
       id: i,
-      x: Math.random() * 100, // random position from 0-100%
+      x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 6 + 2, // random size from 2-8px
-      duration: Math.random() * 5 + 5, // random duration from 5-10s
+      size: Math.random() * 6 + 2,
+      duration: Math.random() * 5 + 5,
       delay: Math.random() * 2,
     }))
   );
   
   // Create a canvas-inspired grid pattern
-  const gridLines = Array.from({ length: 5 }, (_, i) => i * 20); // 0, 20, 40, 60, 80
+  const gridLines = Array.from({ length: 5 }, (_, i) => i * 20);
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-16 md:py-24 flex items-center justify-center min-h-[400px] bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+        <div className="text-center">
+          <motion.div 
+            className="w-16 h-16 mx-auto mb-4 border-4 border-gray-600 border-t-[var(--golden)] rounded-full"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+          <p className="text-white">Loading projects...</p>
+        </div>
+      </section>
+    );
+  }
+
+  // Empty state
+  if (!projects.length) {
+    return (
+      <section className="py-16 md:py-24 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+        <div className="container max-w-7xl mx-auto px-4 text-center">
+          <p className="text-white">No projects available at the moment.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 md:py-24 overflow-hidden relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white" dir={isRtl ? 'rtl' : 'ltr'}>
@@ -286,7 +289,7 @@ const FeaturedProjectsGallery: React.FC = () => {
                 >
                   {getVisibleProjects().map((project, index) => (
                     <motion.div 
-                      key={project.id} 
+                      key={project._id} 
                       className="w-full md:w-1/3 lg:w-1/3"
                       initial={{ opacity: 0, y: 50 }}
                       animate={{ 
@@ -308,7 +311,7 @@ const FeaturedProjectsGallery: React.FC = () => {
                       >
                         <div className="relative h-64 overflow-hidden">
                           <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-                            <Link href="/projects">
+                            <Link href={`/projects/${project.slug.current}`}>
                               <motion.div 
                                 className="px-6 py-3 bg-[var(--golden)] text-gray-900 font-medium rounded-lg inline-flex items-center"
                                 whileHover={{ scale: 1.05 }}
@@ -322,7 +325,7 @@ const FeaturedProjectsGallery: React.FC = () => {
                             </Link>
                           </div>
                           <Image
-                            src={project.image}
+                            src={urlFor(project.image).url()}
                             alt={isRtl ? project.nameAr : project.nameEn}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-110 filter brightness-90"
@@ -344,10 +347,10 @@ const FeaturedProjectsGallery: React.FC = () => {
                           {/* Background Hexagon Pattern */}
                           <div className="absolute top-0 left-0 w-full h-full opacity-5">
                             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                              <pattern id={`hex-pattern-${project.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                              <pattern id={`hex-pattern-${project._id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                 <path d="M10,0 L20,5 L20,15 L10,20 L0,15 L0,5 Z" fill="var(--golden)" />
                               </pattern>
-                              <rect width="100%" height="100%" fill={`url(#hex-pattern-${project.id})`} />
+                              <rect width="100%" height="100%" fill={`url(#hex-pattern-${project._id})`} />
                             </svg>
                           </div>
                           
@@ -358,11 +361,11 @@ const FeaturedProjectsGallery: React.FC = () => {
                           <div className="w-16 h-1 bg-[var(--golden)] mb-4 opacity-80 relative" />
                           
                           <p className="text-gray-300 mb-4 line-clamp-2 relative">
-                            {t(`projectDescription.${project.id}`)}
+                            {isRtl ? project.projectDescriptionAR : project.projectDescriptionEN}
                           </p>
                           
                           <Link 
-                            href="/projects"
+                            href={`/projects/${project.slug.current}`}
                             className="inline-flex items-center text-[var(--golden)] font-medium group relative"
                           >
                             {t('readMore')}

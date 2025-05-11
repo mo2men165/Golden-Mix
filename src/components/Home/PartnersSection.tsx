@@ -3,14 +3,25 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
+import { getPartners } from '@/lib/queries';
+import { urlFor } from '@/lib/sanity-image';
+import { Partner } from '@/types/partner';
 
-const PartnersSection: React.FC = () => {
+interface PartnersSectionProps {
+  partners?: Partner[];
+}
+
+const PartnersSection: React.FC<PartnersSectionProps> = ({ 
+  partners: initialPartners 
+}) => {
   const t = useTranslations('partners');
   const locale = useLocale();
   const isRtl = locale === 'ar';
   const [isMobile, setIsMobile] = useState(true);
   const [isClient, setIsClient] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [partners, setPartners] = useState<Partner[]>(initialPartners || []);
+  const [loading, setLoading] = useState(!initialPartners);
 
   // Client-side only code
   useEffect(() => {
@@ -33,57 +44,45 @@ const PartnersSection: React.FC = () => {
     };
   }, []);
 
-  const partners = [
-    {
-      id: 1,
-      name: "Gates",
-      nameAr: "جيتس",
-      logo: "/images/gates2-removebg-preview.png",
-      description: "partnerGatesDescription",
-    },
-    {
-      id: 2,
-      name: "Nabny",
-      nameAr: "نبني",
-      logo: "/images/nabny.png",
-      description: "partnerNabnyDescription",
-    },
-    {
-      id: 3,
-      name: "Alostaz",
-      nameAr: "الأستاذ",
-      logo: "/images/alostaz-removebg-preview.png",
-      description: "partnerUstazDescription",
-    },
-    {
-      id: 4,
-      name: "Zaya Developments",
-      nameAr: "زايا للتطوير",
-      logo: "/images/zaya-removebg-preview.png",
-      description: "partnerZayaDescription",
-    },
-    {
-      id: 5,
-      name: "AFAAQ Developments",
-      nameAr: "آفاق للتطوير",
-      logo: "/images/afaaq-logo.webp", 
-      description: "partnerAfaaqDescription",
-    },
-    {
-      id: 6,
-      name: "Madaen Group",
-      nameAr: "مجموعة مدائن",
-      logo: "/images/madaen.webp",
-      description: "partnerMadaenDescription",
-    },
-    {
-      id: 7,
-      name: "Tatweer Misr",
-      nameAr: "تطوير مصر",
-      logo: "/images/tatweer.png",
-      description: "partnerTatweerDescription",
+  // Fetch partners from Sanity only if not provided as props
+  useEffect(() => {
+    if (!initialPartners) {
+      const fetchPartners = async () => {
+        try {
+          const data = await getPartners();
+          setPartners(data);
+        } catch (error) {
+          console.error('Error fetching partners:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchPartners();
     }
-  ];
+  }, [initialPartners]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-12 md:py-20 bg-white">
+        <div className="container max-w-7xl mx-auto px-4 text-center">
+          <p className="text-gray-600">Loading partners...</p>
+        </div>
+      </section>
+    );
+  }
+
+  // Empty state
+  if (!partners.length) {
+    return (
+      <section className="py-12 md:py-20 bg-white">
+        <div className="container max-w-7xl mx-auto px-4 text-center">
+          <p className="text-gray-600">No partners available at the moment.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12 md:py-20 bg-white overflow-hidden relative" dir={isRtl ? 'rtl' : 'ltr'}>
@@ -113,47 +112,66 @@ const PartnersSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {partners.map((partner, index) => (
-            <div
-              key={partner.id}
-              className={`rounded-xl overflow-hidden shadow-md border border-gray-100 flex flex-col items-center bg-white h-full transition-all duration-500 ease-in-out ${
-                mounted 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-4'
-              }`}
-              // Using CSS variables for delay to avoid the animation/animationDelay conflict
-              style={{
-                '--delay': `${Math.min(index * 0.1, 0.7)}s`,
-                transitionDelay: mounted ? 'var(--delay)' : '0s'
-              } as React.CSSProperties}
-            >
-              <div className="w-full h-40 md:h-48 relative mb-0 bg-gray-700 p-4 flex items-center justify-center overflow-hidden">
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <Image
-                    src={partner.logo}
-                    alt={isRtl ? partner.nameAr : partner.name}
-                    width={160}
-                    height={100}
-                    className="object-contain max-w-full max-h-full"
-                    loading={index < 3 ? "eager" : "lazy"}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+          {partners.map((partner, index) => {
+            // Check if logo has a proper asset reference
+            let imageUrl;
+            if (partner.logo?.asset?._ref) {
+              imageUrl = urlFor(partner.logo).url();
+            } else if (partner.logo?._upload?.previewImage) {
+              // Use the preview image if available (for images still being uploaded)
+              imageUrl = partner.logo._upload.previewImage;
+            } else {
+              // Fallback placeholder image
+              imageUrl = '/images/placeholder-logo.png';
+            }
+
+            return (
+              <div
+                key={partner._id}
+                className={`rounded-xl overflow-hidden shadow-md border border-gray-100 flex flex-col items-center bg-white h-full transition-all duration-500 ease-in-out ${
+                  mounted 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-4'
+                }`}
+                // Using CSS variables for delay to avoid the animation/animationDelay conflict
+                style={{
+                  '--delay': `${Math.min(index * 0.1, 0.7)}s`,
+                  transitionDelay: mounted ? 'var(--delay)' : '0s'
+                } as React.CSSProperties}
+              >
+                <div className="w-full h-40 md:h-48 relative mb-0 bg-gray-700 p-4 flex items-center justify-center overflow-hidden">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <Image
+                      src={imageUrl}
+                      alt={isRtl ? partner.nameAr : partner.name}
+                      width={160}
+                      height={100}
+                      className="object-contain max-w-full max-h-full"
+                      loading={index < 3 ? "eager" : "lazy"}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      onError={(e) => {
+                        // If image fails to load, use placeholder
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/placeholder-logo.png';
+                      }}
+                    />
+                  </div>
+                </div>
+                
+                <div className="bg-white w-full p-6 flex flex-col items-center flex-grow">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 font-playfair text-center">
+                    {isRtl ? partner.nameAr : partner.name}
+                  </h3>
+                  
+                  <div className="w-12 h-1 bg-[var(--golden)] mb-3"></div>
+                  
+                  <p className="text-gray-600 text-center text-sm md:text-base">
+                    {isRtl ? partner.descriptionAr : partner.descriptionEn}
+                  </p>
                 </div>
               </div>
-              
-              <div className="bg-white w-full p-6 flex flex-col items-center flex-grow">
-                <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 font-playfair text-center">
-                  {isRtl ? partner.nameAr : partner.name}
-                </h3>
-                
-                <div className="w-12 h-1 bg-[var(--golden)] mb-3"></div>
-                
-                <p className="text-gray-600 text-center text-sm md:text-base">
-                  {t(partner.description)}
-                </p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

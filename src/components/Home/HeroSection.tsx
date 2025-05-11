@@ -40,7 +40,7 @@ const HeroSection: React.FC = () => {
   return (
     <section className="relative w-full overflow-hidden">
       {/* Dynamic height based on screen size */}
-      <div className={`h-screen w-full ${isMobile ? 'max-h-[500px]' : 'min-h-[600px]'}`}>
+      <div className={`h-[120vh] w-full ${isMobile ? 'max-h-[500px]' : 'min-h-[600px]'}`}>
         {/* Video Background - always using object-cover for consistent behavior */}
         <div className="absolute inset-0 w-full h-full">
           <video
