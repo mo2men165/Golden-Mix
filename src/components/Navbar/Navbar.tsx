@@ -10,6 +10,7 @@ import { Menu, X } from 'lucide-react';
 
 import { navLinks } from '@/constants';
 import LanguageSwitcher from './LanguageSwitcher';
+import WhatsAppButton from '../ui/WhatsappButton';
 
 const Navbar = () => {
   const t = useTranslations('navbar');
@@ -156,13 +157,18 @@ const Navbar = () => {
 
           {/* Right - Button & Language Switcher */}
           <div className="hidden xl:flex items-center gap-5">
-            <Link 
+            {/* <Link 
               href="/contact" 
               locale={locale}
               className="bg-[#C19434] hover:bg-[#A17A20] text-white px-5 py-2.5 rounded-xl text-base font-medium transition-all duration-300 shadow"
             >
               {t('getQuote')}
-            </Link>
+            </Link> */}
+            <WhatsAppButton 
+              phoneNumber="+201007899995 " // Your actual number
+              message="Hi! I'd like to know more about Golden Mix concrete services."
+              className=""
+            />
             <LanguageSwitcher />
           </div>
 

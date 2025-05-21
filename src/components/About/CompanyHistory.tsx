@@ -34,19 +34,6 @@ const CompanyHistory: React.FC = () => {
     },
   };
 
-  const decorElementVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        delay: 0.5,
-        ease: "backOut",
-      },
-    },
-  };
-
   // Equipment list based on screenshot
   const equipment = [
     { name: "concretePump", count: 5 },
@@ -57,62 +44,9 @@ const CompanyHistory: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 pt-50 md:py-24 md:pt-36 bg-white overflow-hidden relative" dir={isRtl ? 'rtl' : 'ltr'}>
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Honeycomb Pattern */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 26.6L60 30 45 56.6 30 60 15 33.4 0 30 15 3.4z' fill='%23DBA628' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-          backgroundSize: '120px 120px',
-        }} />
-        
-        {/* Top Right Corner Design */}
-        <motion.div 
-          className="absolute top-0 right-0 w-96 h-96"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.5 }}
-        >
-          <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path 
-              d="M100,0 C80,40 60,60 0,100 L0,0 Z" 
-              fill="var(--golden)" 
-              fillOpacity="0.2"
-            />
-          </svg>
-        </motion.div>
-        
-        {/* Bottom Left Corner Design */}
-        <motion.div 
-          className="absolute bottom-0 left-0 w-96 h-96"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.8 }}
-        >
-          <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path 
-              d="M0,100 C40,80 60,40 100,0 L100,100 Z" 
-              fill="var(--golden)" 
-              fillOpacity="0.2"
-            />
-          </svg>
-        </motion.div>
-        
-        {/* Circle Accents */}
-        <motion.div 
-          className="absolute top-1/4 left-1/4 w-40 h-40 rounded-full bg-[var(--golden)] opacity-10"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.1 }}
-          transition={{ duration: 1.5, delay: 1.0 }}
-        />
-        
-        <motion.div 
-          className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-[var(--golden)] opacity-15"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.15 }}
-          transition={{ duration: 1.5, delay: 1.2 }}
-        />
-      </div>
+    <section className="py-16 pt-50 md:py-24 md:pt-36 bg-gray-50 overflow-hidden relative" dir={isRtl ? 'rtl' : 'ltr'}>
+      {/* Simplified Background - Just a subtle gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 opacity-50"></div>
       
       <div className="container max-w-6xl mx-auto px-4 relative z-10">
         <motion.div
@@ -213,12 +147,12 @@ const CompanyHistory: React.FC = () => {
             <div className="absolute bottom-0 left-0 w-full p-6">
               <div className="flex flex-wrap gap-4">
                 <div className="bg-[var(--golden)] rounded-lg p-4 text-center text-white min-w-[100px]">
-                  <p className="text-3xl font-bold">40+</p>
+                  <p className="text-3xl font-bold">50+</p>
                   <p className="text-sm">{t('yearsExperience')}</p>
                 </div>
                 
                 <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4 text-center text-golden-dark min-w-[100px]">
-                  <p className="text-3xl font-bold">1B+</p>
+                  <p className="text-3xl font-bold">20B+</p>
                   <p className="text-sm">{t('egyptianPounds')}</p>
                 </div>
                 
@@ -250,7 +184,7 @@ const CompanyHistory: React.FC = () => {
             {equipment.map((item, index) => (
               <motion.div
                 key={item.name}
-                className="bg-gray-50 rounded-lg shadow-md p-6 text-center border border-gray-200"
+                className="bg-white rounded-lg shadow-md p-6 text-center border border-gray-200"
                 variants={itemVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -273,7 +207,7 @@ const CompanyHistory: React.FC = () => {
         {/* Mission and Vision */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
           <motion.div
-            className="bg-gray-50 p-8 rounded-xl shadow-md border border-gray-100"
+            className="bg-white p-8 rounded-xl shadow-md border border-gray-100"
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
@@ -291,7 +225,7 @@ const CompanyHistory: React.FC = () => {
           </motion.div>
           
           <motion.div
-            className="bg-gray-50 p-8 rounded-xl shadow-md border border-gray-100"
+            className="bg-white p-8 rounded-xl shadow-md border border-gray-100"
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"

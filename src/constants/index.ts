@@ -37,7 +37,7 @@ export const contactInfo = {
     en: "Unit B2 – West Get Mall - Residential Separate - Sector The First District - 6 of October - Giza",
     ar: "وحدة B2 - ويست جيت مول - سكني منفصل - قطاع الحي الأول - 6 أكتوبر - الجيزة"
   },
-  phones: ["+201007899995", "+20111177775"],
+  phones: ["+20 100 078 9995", "+20 111 117 7775"],
   email: "golenmix244@gmail.com",
   workingHours: {
     en: "Sunday - Thursday 9 AM - 5 PM",

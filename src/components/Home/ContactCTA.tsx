@@ -1,15 +1,42 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
-import { Link } from '@/i18n/navigation';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { getContactInfo } from '@/lib/queries';
+import { ContactInfo } from '@/types/contactInfo';
 
-const ContactCTA: React.FC = () => {
+interface ContactCTAProps {
+  contactInfo?: ContactInfo | null;
+}
+
+const ContactCTA: React.FC<ContactCTAProps> = ({ contactInfo: initialContactInfo }) => {
   const t = useTranslations('contact');
   const locale = useLocale();
   const isRtl = locale === 'ar';
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(initialContactInfo || null);
+  const [loading, setLoading] = useState(!initialContactInfo);
+
+  // Fetch contact info if not provided as props
+useEffect(() => {
+  if (!initialContactInfo) {
+    const fetchContactInfo = async () => {
+      try {
+        const data = await getContactInfo();
+        if (data) {
+          setContactInfo(data as unknown as ContactInfo);
+        }
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactInfo();
+  }
+}, [initialContactInfo]);
 
   // Animation variants
   const containerVariants = {
@@ -64,29 +91,81 @@ const ContactCTA: React.FC = () => {
     },
   };
 
-  const contactInfo = [
-    {
-      id: 1,
-      icon: <Phone size={24} />,
-      title: "phoneTitle",
-      content: "+20 100 789 9995 ",
-      href: "tel:+201007899995 ",
-    },
-    {
-      id: 2,
-      icon: <Mail size={24} />,
-      title: "emailTitle",
-      content: "golenmix244@gmail.com",
-      href: "mailto:golenmix244@gmail.com",
-    },
-    {
-      id: 3,
-      icon: <MapPin size={24} />,
-      title: "addressTitle",
-      content: "addressContent",
-      href: "https://maps.google.com",
-    },
-  ];
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-16 md:py-20 relative overflow-hidden bg-gray-900">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="animate-pulse grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div className="md:col-span-3 space-y-6">
+              <div className="h-8 bg-gray-700 rounded w-1/3"></div>
+              <div className="h-12 bg-gray-700 rounded w-2/3"></div>
+              <div className="h-6 bg-gray-700 rounded w-full"></div>
+              <div className="space-y-4">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gray-700 rounded-full"></div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-gray-700 rounded w-1/3 mb-2"></div>
+                      <div className="h-5 bg-gray-700 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="md:col-span-2">
+              <div className="bg-gray-700 p-8 rounded-xl">
+                <div className="h-6 bg-gray-600 rounded w-1/2 mb-6"></div>
+                <div className="space-y-4">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="h-12 bg-gray-600 rounded"></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Create contact info array from Sanity data
+  const getContactInfoItems = () => {
+    if (!contactInfo) return [];
+
+    // Collect all available phone numbers
+    const phoneNumbers: string[] = [
+      contactInfo.phoneNumber1,
+      contactInfo.phoneNumber2,
+      contactInfo.phoneNumber3,
+    ].filter((phone): phone is string => phone != null && phone.trim() !== '');
+
+    return [
+      {
+        id: 1,
+        icon: <Phone size={24} />,
+        title: "phoneTitle",
+        content: phoneNumbers.map(phone => ({ number: phone, href: `tel:${phone}` })),
+        href: null,
+      },
+      {
+        id: 2,
+        icon: <Mail size={24} />,
+        title: "emailTitle",
+        content: contactInfo.email,
+        href: `mailto:${contactInfo.email}`,
+      },
+      {
+        id: 3,
+        icon: <MapPin size={24} />,
+        title: "addressTitle",
+        content: isRtl ? contactInfo.addressAr : contactInfo.addressEn,
+        href: null,
+      },
+    ];
+  };
+
+  const contactInfoItems = getContactInfoItems();
 
   return (
     <section className="py-16 md:py-20 relative overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}>
@@ -104,7 +183,7 @@ const ContactCTA: React.FC = () => {
       
       {/* Gold accent elements */}
       <motion.div 
-        className="absolute top-0 ltr:left-0 rtl:right-0 w-1/3 h-1 bg-[var(--golden)]"
+        className={`absolute top-0 w-1/3 h-1 bg-[var(--golden)] ${isRtl ? 'right-0' : 'left-0'}`}
         initial={{ width: 0 }}
         whileInView={{ width: '33%' }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -112,7 +191,7 @@ const ContactCTA: React.FC = () => {
       />
       
       <motion.div 
-        className="absolute bottom-0 ltr:right-0 rtl:left-0 w-1/3 h-1 bg-[var(--golden)]"
+        className={`absolute bottom-0 w-1/3 h-1 bg-[var(--golden)] ${isRtl ? 'left-0' : 'right-0'}`}
         initial={{ width: 0 }}
         whileInView={{ width: '33%' }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -151,29 +230,56 @@ const ContactCTA: React.FC = () => {
             </motion.p>
             
             <div className="space-y-6 mb-8">
-              {contactInfo.map((item, index) => (
-                <motion.a
+              {contactInfoItems.map((item, index) => (
+                <motion.div
                   key={item.id}
-                  href={item.href}
-                  className="flex items-center text-white hover:text-[var(--golden)] transition-colors duration-300 group"
+                  className="block text-white hover:text-[var(--golden)] transition-colors duration-300 group"
                   variants={infoItemVariants}
-                  whileHover="hover"
                   custom={index}
-                  target={item.id === 3 ? "_blank" : undefined}
-                  rel={item.id === 3 ? "noopener noreferrer" : undefined}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[var(--golden)] bg-opacity-20 flex items-center justify-center mr-4 group-hover:bg-opacity-100 transition-all duration-300">
-                    <div className="text-gray-950 transition-colors duration-300">
-                      {item.icon}
+                  <div className={`grid items-center gap-4 ${isRtl ? 'grid-cols-[1fr_auto] text-right' : 'grid-cols-[auto_1fr] text-left'}`}>
+                    <div className={`w-12 h-12 rounded-full bg-[var(--golden)] bg-opacity-20 flex items-center justify-center group-hover:bg-opacity-100 transition-all duration-300 ${isRtl ? 'order-2' : 'order-1'}`}>
+                      <div className="text-gray-950 transition-colors duration-300">
+                        {item.icon}
+                      </div>
+                    </div>
+                    <div className={`${isRtl ? 'order-1' : 'order-2'}`}>
+                      <p className="font-medium text-sm text-gray-400">{t(item.title)}</p>
+                      {item.id === 1 && Array.isArray(item.content) ? (
+                        // Phone numbers with individual hrefs
+                        <div className="font-semibold space-y-1">
+                          {(item.content as Array<{ number: string; href: string }>).map((phone, idx) => (
+                            <div key={idx}>
+                              <a 
+                                href={phone.href} 
+                                className="hover:text-[var(--golden)] transition-colors block"
+                                dir="ltr" 
+                                style={{ textAlign: isRtl ? 'right' : 'left' }}
+                              >
+                                {phone.number}
+                              </a>
+                            </div>
+                          ))}
+                        </div>
+                      ) : item.id === 2 ? (
+                        // Email with link
+                        <a 
+                          href={item.href || undefined}
+                          className="font-semibold hover:text-[var(--golden)] transition-colors" 
+                          dir="ltr" 
+                          style={{ textAlign: isRtl ? 'right' : 'left' }}
+                        >
+                          {item.content as string}
+                        </a>
+                      ) : (
+                        // Address (no link)
+                        <p className="font-semibold">
+                          {item.content as string}
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div>
-                    <p className="font-medium text-sm text-gray-400">{t(item.title)}</p>
-                    <p className="font-semibold">
-                      {item.id === 3 ? t(item.content) : item.content}
-                    </p>
-                  </div>
-                </motion.a>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -194,7 +300,8 @@ const ContactCTA: React.FC = () => {
                   <input
                     type="text"
                     placeholder={t('namePlaceholder')}
-                    className="w-full bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg py-3 px-4 text-gray-950 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--golden)] focus:border-transparent"
+                    className={`w-full bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg py-3 px-4 text-gray-950 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--golden)] focus:border-transparent ${isRtl ? 'text-right' : 'text-left'}`}
+                    dir={isRtl ? 'rtl' : 'ltr'}
                   />
                 </motion.div>
                 
@@ -205,7 +312,8 @@ const ContactCTA: React.FC = () => {
                   <input
                     type="email"
                     placeholder={t('emailPlaceholder')}
-                    className="w-full bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg py-3 px-4 text-gray-950 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--golden)] focus:border-transparent"
+                    className={`w-full bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg py-3 px-4 text-gray-950 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--golden)] focus:border-transparent ${isRtl ? 'text-right' : 'text-left'}`}
+                    dir={isRtl ? 'rtl' : 'ltr'}
                   />
                 </motion.div>
                 
@@ -216,7 +324,8 @@ const ContactCTA: React.FC = () => {
                   <textarea
                     placeholder={t('messagePlaceholder')}
                     rows={4}
-                    className="w-full bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg py-3 px-4 text-gray-950 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--golden)] focus:border-transparent"
+                    className={`w-full bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg py-3 px-4 text-gray-950 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--golden)] focus:border-transparent ${isRtl ? 'text-right' : 'text-left'}`}
+                    dir={isRtl ? 'rtl' : 'ltr'}
                   ></textarea>
                 </motion.div>
                 

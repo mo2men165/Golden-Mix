@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
 const QualityCommitments: React.FC = () => {
   const t = useTranslations('quality');
@@ -47,64 +46,67 @@ const QualityCommitments: React.FC = () => {
     },
   };
 
-  const decorElementVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        delay: 0.5,
-        ease: "backOut",
-      },
-    },
-  };
-
   // Quality testing processes
   const testingProcesses = [
     {
       id: 1,
-      iconPath: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
         </svg>
       ),
       title: t('aggregateTesting'),
       description: t('aggregateTestingDesc'),
-      imagePath: "/images/aggregate.png",
+      details: [
+        t('aggregateDetail1'),
+        t('aggregateDetail2'),
+        t('aggregateDetail3')
+      ]
     },
     {
       id: 2,
-      iconPath: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
         </svg>
       ),
       title: t('mixDesign'),
       description: t('mixDesignDesc'),
-      imagePath: "/images/mix.png",
+      details: [
+        t('mixDesignDetail1'),
+        t('mixDesignDetail2'),
+        t('mixDesignDetail3')
+      ]
     },
     {
       id: 3,
-      iconPath: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
         </svg>
       ),
       title: t('strengthTesting'),
       description: t('strengthTestingDesc'),
-      imagePath: "/images/strength.png",
+      details: [
+        t('strengthDetail1'),
+        t('strengthDetail2'),
+        t('strengthDetail3')
+      ]
     },
     {
       id: 4,
-      iconPath: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
       ),
       title: t('plantCalibration'),
       description: t('plantCalibrationDesc'),
-      imagePath: "/images/calibration.png",
+      details: [
+        t('calibrationDetail1'),
+        t('calibrationDetail2'),
+        t('calibrationDetail3')
+      ]
     },
   ];
 
@@ -114,6 +116,7 @@ const QualityCommitments: React.FC = () => {
       id: 1,
       name: t('egyptianCode'),
       description: t('egyptianCodeDesc'),
+      code: "ECP 203-2007",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -124,6 +127,7 @@ const QualityCommitments: React.FC = () => {
       id: 2,
       name: "ASTM C494",
       description: t('astmDesc'),
+      code: "ASTM International",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -134,6 +138,7 @@ const QualityCommitments: React.FC = () => {
       id: 3,
       name: "BS EN 933",
       description: t('bsEnDesc'),
+      code: "British Standard",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -144,6 +149,7 @@ const QualityCommitments: React.FC = () => {
       id: 4,
       name: t('qualityManagement'),
       description: t('qualityManagementDesc'),
+      code: "ISO 9001:2015",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -190,7 +196,7 @@ const QualityCommitments: React.FC = () => {
       description: t('environmentalResponsibilityDesc'),
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
       ),
     },
@@ -282,44 +288,36 @@ const QualityCommitments: React.FC = () => {
         {/* Testing Processes Tab Content */}
         {activeTab === 'testing' && (
           <motion.div
-            className="space-y-12"
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {testingProcesses.map((process, index) => (
+            {testingProcesses.map((process) => (
               <motion.div
                 key={process.id}
-                className={`flex flex-col ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                } bg-white rounded-xl overflow-hidden shadow-lg`}
+                className="bg-white rounded-xl overflow-hidden shadow-lg p-6"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.3 } }}
               >
-                <div className="md:w-1/2 relative">
-                  {/* Using aspect-ratio utility to maintain a proper ratio */}
-                  <div className="aspect-ratio-4/3 w-full">
-                    <Image
-                      src={process.imagePath}
-                      alt={process.title}
-                      width={800}
-                      height={600}
-                      className="w-full h-full object-cover"
-                      style={{ aspectRatio: '4/3', objectFit: 'cover' }}
-                    />
+                <div className="flex items-center mb-4">
+                  <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[var(--golden)] bg-opacity-10 text-[var(--golden)] mr-4">
+                    {process.icon}
                   </div>
+                  <h3 className="text-xl font-bold font-playfair">{process.title}</h3>
                 </div>
-                <div className="md:w-1/2 p-8 flex flex-col justify-center">
-                  <div className="flex items-center mb-4">
-                    <span className="text-[var(--golden)] mr-3">
-                      {process.iconPath}
-                    </span>
-                    <h3 className="text-2xl font-bold font-playfair">{process.title}</h3>
-                  </div>
-                  <p className="text-gray-700">{process.description}</p>
+                <p className="text-gray-700 mb-4">{process.description}</p>
+                <div className="space-y-2">
+                  {process.details.map((detail, index) => (
+                    <div key={index} className="flex items-start">
+                      <div className="w-2 h-2 rounded-full bg-[var(--golden)] mt-2 mr-3 flex-shrink-0"></div>
+                      <p className="text-gray-600 text-sm">{detail}</p>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             ))}
@@ -329,50 +327,36 @@ const QualityCommitments: React.FC = () => {
         {/* Certifications Tab Content */}
         {activeTab === 'certifications' && (
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            className="space-y-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {certifications.map((cert) => (
-              <motion.div
-                key={cert.id}
-                className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                whileHover={{ y: -5, transition: { duration: 0.3 } }}
-              >
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[var(--golden)] bg-opacity-10 text-gray-950 mb-4">
-                  {cert.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3 font-playfair">{cert.name}</h3>
-                <p className="text-gray-700">{cert.description}</p>
-              </motion.div>
-            ))}
-            
-            {/* Certification Image */}
-            <motion.div
-              className="md:col-span-2 bg-white p-6 rounded-xl shadow-lg"
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold mb-6 font-playfair text-center">
-                {t('certificationEvidence')}
-              </h3>
-              <div className="relative w-full aspect-video">
-                <Image
-                  src="/images/certification.jpg"
-                  alt={t('certificationEvidenceAlt')}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {certifications.map((cert) => (
+                <motion.div
+                  key={cert.id}
+                  className="bg-white p-6 rounded-xl shadow-lg"
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                >
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--golden)] bg-opacity-10 text-[var(--golden)] mr-4">
+                      {cert.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold font-playfair">{cert.name}</h3>
+                      <p className="text-sm text-[var(--golden)] font-medium">{cert.code}</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-700">{cert.description}</p>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         )}
 
@@ -400,7 +384,7 @@ const QualityCommitments: React.FC = () => {
                   whileHover={{ y: -5, transition: { duration: 0.3 } }}
                 >
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--golden)] bg-opacity-10 text-gray-950 mr-4">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--golden)] bg-opacity-10 text-[var(--golden)] mr-4">
                       {commitment.icon}
                     </div>
                     <h3 className="text-xl font-bold font-playfair">{commitment.title}</h3>
@@ -423,21 +407,21 @@ const QualityCommitments: React.FC = () => {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto flex items-center justify-center rounded-full bg-[var(--golden)] text-gray-950 text-2xl font-bold mb-4">
+                  <div className="w-16 h-16 mx-auto flex items-center justify-center rounded-full bg-[var(--golden)] text-white text-2xl font-bold mb-4">
                     1
                   </div>
                   <h4 className="text-lg font-bold mb-2">{t('qualityControlStep1')}</h4>
                   <p className="text-gray-700">{t('qualityControlStep1Desc')}</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto flex items-center justify-center rounded-full bg-[var(--golden)] text-gray-950 text-2xl font-bold mb-4">
+                  <div className="w-16 h-16 mx-auto flex items-center justify-center rounded-full bg-[var(--golden)] text-white text-2xl font-bold mb-4">
                     2
                   </div>
                   <h4 className="text-lg font-bold mb-2">{t('qualityControlStep2')}</h4>
                   <p className="text-gray-700">{t('qualityControlStep2Desc')}</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto flex items-center justify-center rounded-full bg-[var(--golden)] text-gray-950 text-2xl font-bold mb-4">
+                  <div className="w-16 h-16 mx-auto flex items-center justify-center rounded-full bg-[var(--golden)] text-white text-2xl font-bold mb-4">
                     3
                   </div>
                   <h4 className="text-lg font-bold mb-2">{t('qualityControlStep3')}</h4>

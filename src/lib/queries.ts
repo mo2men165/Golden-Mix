@@ -2,6 +2,7 @@
 import { client } from '@/sanity/client';
 import { Project } from '@/types/project';
 import { Partner } from '@/types/partner';
+import { ContactInfo } from '@/types';
 
 export async function getProjects(): Promise<Project[]> {
   const query = `*[_type == "project"] | order(order asc, _createdAt desc) {
@@ -33,4 +34,18 @@ export async function getPartners(): Promise<Partner[]> {
   }`;
   
   return client.fetch<Partner[]>(query);
+}
+
+export async function getContactInfo(): Promise<ContactInfo | null> {
+  const query = `*[_type == "contactInfo"][0] {
+    _id,
+    phoneNumber1,
+    phoneNumber2,
+    phoneNumber3,
+    email,
+    addressEn,
+    addressAr
+  }`;
+  
+  return client.fetch<ContactInfo>(query);
 }

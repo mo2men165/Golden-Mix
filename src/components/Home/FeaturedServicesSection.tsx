@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Building, Layers, Truck } from 'lucide-react';
+import { Building, Layers, Truck, Package } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 
 const FeaturedServicesSection: React.FC = () => {
@@ -103,6 +103,15 @@ const FeaturedServicesSection: React.FC = () => {
       image: '/images/precast.jpg',
       titleKey: 'precastTitle',
       descriptionKey: 'precastDescription',
+    },
+    {
+      id: 4,
+      icon: <Package size={40} />,
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
+      image: '/images/Cement-blocks.jpg',
+      titleKey: 'cementBlocksTitle',
+      descriptionKey: 'cementBlocksDescription',
     }
   ];
 
@@ -221,7 +230,7 @@ const FeaturedServicesSection: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 lg:gap-10">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
