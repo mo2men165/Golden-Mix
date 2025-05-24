@@ -1,14 +1,47 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { getContactInfo } from '@/lib/queries';
+import { ContactInfo } from '@/types/contactInfo';
 
-const ContactHero: React.FC = () => {
+interface ContactHeroProps {
+  contactInfo?: ContactInfo | null;
+}
+
+const ContactHero: React.FC<ContactHeroProps> = ({ contactInfo: initialContactInfo }) => {
   const t = useTranslations('contactHero');
   const locale = useLocale();
   const isRtl = locale === 'ar';
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(initialContactInfo || null);
+  const [loading, setLoading] = useState(!initialContactInfo);
+
+  // Fetch contact info if not provided as props
+  useEffect(() => {
+    if (!initialContactInfo) {
+      const fetchContactInfo = async () => {
+        try {
+          const data = await getContactInfo();
+          setContactInfo(data as unknown as ContactInfo);
+        } catch (error) {
+          console.error('Error fetching contact info:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchContactInfo();
+    }
+  }, [initialContactInfo]);
+
+  // Collect all available phone numbers
+  const phoneNumbers: string[] = contactInfo ? [
+    contactInfo.phoneNumber1,
+    contactInfo.phoneNumber2,
+    contactInfo.phoneNumber3,
+  ].filter((phone): phone is string => phone != null && phone.trim() !== '') : [];
   
   // Animation variants
   const containerVariants = {
@@ -33,6 +66,36 @@ const ContactHero: React.FC = () => {
       }
     }
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="relative pt-36 md:pt-40 lg:pt-52 pb-16 md:pb-24 overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}>
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/contact-hero-bg.jpg"
+            alt="Golden Mix Concrete"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+        
+        <div className="container max-w-7xl mx-auto px-4 relative z-10">
+          <div className="text-center max-w-3xl mx-auto animate-pulse">
+            <div className="h-6 bg-gray-700 rounded w-1/4 mx-auto mb-3"></div>
+            <div className="h-16 bg-gray-700 rounded w-3/4 mx-auto mb-6"></div>
+            <div className="h-6 bg-gray-700 rounded w-2/3 mx-auto mb-8"></div>
+            <div className="flex flex-wrap justify-center gap-6 mt-8">
+              <div className="h-12 bg-gray-700 rounded w-48"></div>
+              <div className="h-12 bg-gray-700 rounded w-64"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   
   return (
     <section className="relative pt-36 md:pt-40 lg:pt-52 pb-16 md:pb-24 overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}>
@@ -81,24 +144,51 @@ const ContactHero: React.FC = () => {
           </motion.p>
           
           {/* Quick Contact Info */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-6 mt-8"
-            variants={itemVariants}
-          >
-            <div className="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg text-white border border-white/20">
-              <span className="font-medium mr-2">{t('phone')}:</span>
-              <a href="tel:+201007899995" className="hover:text-[var(--golden)] transition-colors">
-              +20 100 789 9995
-              </a>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg text-white border border-white/20">
-              <span className="font-medium mr-2">{t('email')}:</span>
-              <a href="mailto:golenmix244@gmail.com" className="hover:text-[var(--golden)] transition-colors">
-                golenmix244@gmail.com
-              </a>
-            </div>
-          </motion.div>
+          {contactInfo && (
+            <motion.div
+              className="flex flex-wrap justify-center gap-6 mt-8"
+              variants={itemVariants}
+            >
+              {/* Phone Numbers */}
+              {phoneNumbers.length > 0 && (
+                <div className="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg text-white border border-white/20">
+                  <span className={`font-medium ${isRtl ? "ml-2" : "mr-2"}`}>
+                    {t('phone')}:
+                  </span>
+                  <div className="inline" dir="ltr" style={{ textAlign: isRtl ? 'right' : 'left' }}>
+                    {phoneNumbers.map((phone, index) => (
+                      <span key={index}>
+                        <a 
+                          href={`tel:${phone}`}
+                          className="hover:text-[var(--golden)] transition-colors"
+                        >
+                          {phone}
+                        </a>
+                        {index < phoneNumbers.length - 1 && (
+                          <span className="text-white"> - </span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Email */}
+              <div className="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg text-white border border-white/20">
+                <span className={`font-medium ${isRtl ? "ml-2" : "mr-2"}`}>
+                  {t('email')}:
+                </span>
+                <a 
+                  href={`mailto:${contactInfo.email}`}
+                  className="hover:text-[var(--golden)] transition-colors"
+                  dir="ltr"
+                  style={{ textAlign: isRtl ? 'right' : 'left' }}
+                >
+                  {contactInfo.email}
+                </a>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </section>

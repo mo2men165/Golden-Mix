@@ -84,6 +84,80 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({
     );
   }
 
+  const getImageSize = (partnerName: string) => {
+  const name = partnerName.toLowerCase();
+  
+  // Zaya - scale 200 (keeping your custom scale-200 class)
+  if (name.includes('zaya') || name.includes('زايا')) {
+    return {
+      width: 200,
+      height: 120,
+      className: "object-contain max-w-full max-h-full scale-200"
+    };
+  }
+  
+  // Gates - scale 150
+  if (name.includes('gates') || name.includes('جيتس')) {
+    return {
+      width: 200,
+      height: 120,
+      className: "object-contain max-w-full max-h-full scale-150"
+    };
+  }
+  
+  // Nabny - scale 150
+  if (name.includes('nabny') || name.includes('نبني')) {
+    return {
+      width: 200,
+      height: 120,
+      className: "object-contain max-w-full max-h-full scale-120"
+    };
+  }
+  
+  // Tatweer - scale 150
+  if (name.includes('tatweer') || name.includes('تطوير مصر')) {
+    return {
+      width: 200,
+      height: 120,
+      className: "object-contain max-w-full max-h-full scale-150"
+    };
+  }
+  
+  // Madaen - scale 150
+  if (name.includes('madaeen') || name.includes('مدائن')) {
+    return {
+      width: 200,
+      height: 120,
+      className: "object-contain max-w-full max-h-full scale-150"
+    };
+  }
+  
+  // Alostaz - scale 120
+  if (name.includes('alostaz') || name.includes('الأستاذ')) {
+    return {
+      width: 200,
+      height: 120,
+      className: "object-contain max-w-full max-h-full scale-120"
+    };
+  }
+  
+  // Afaaq - no scale (default)
+  if (name.includes('afaaq') || name.includes('آفاق')) {
+    return {
+      width: 160,
+      height: 100,
+      className: "object-contain max-w-full max-h-full"
+    };
+  }
+  
+  // Default size for other partners
+  return {
+    width: 160,
+    height: 100,
+    className: "object-contain max-w-full max-h-full"
+  };
+};
+
   return (
     <section className="py-12 md:py-20 bg-white overflow-hidden relative" dir={isRtl ? 'rtl' : 'ltr'}>
       {/* Simple background pattern only on desktop */}
@@ -141,20 +215,24 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({
               >
                 <div className="w-full h-40 md:h-48 relative mb-0 bg-gray-700 p-4 flex items-center justify-center overflow-hidden">
                   <div className="relative w-full h-full flex items-center justify-center">
-                    <Image
-                      src={imageUrl}
-                      alt={isRtl ? partner.nameAr : partner.name}
-                      width={160}
-                      height={100}
-                      className="object-contain max-w-full max-h-full"
-                      loading={index < 3 ? "eager" : "lazy"}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      onError={(e) => {
-                        // If image fails to load, use placeholder
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/images/placeholder-logo.png';
-                      }}
-                    />
+                    {(() => {
+                      const imageSize = getImageSize(isRtl ? partner.nameAr : partner.name);
+                      return (
+                        <Image
+                          src={imageUrl}
+                          alt={isRtl ? partner.nameAr : partner.name}
+                          width={imageSize.width}
+                          height={imageSize.height}
+                          className={imageSize.className}
+                          loading={index < 3 ? "eager" : "lazy"}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = '/images/placeholder-logo.png';
+                          }}
+                        />
+                      );
+                    })()}
                   </div>
                 </div>
                 

@@ -369,7 +369,7 @@ const AllProjects: React.FC<AllProjectsProps> = ({ projects: initialProjects }) 
               className="flex items-center px-4 py-2 bg-white rounded-lg shadow-md"
               variants={itemVariants}
             >
-              <span className="text-gray-700">
+              <span className="text-gray-700" dir='ltr'>
                 {currentPage} of {totalPages}
               </span>
             </motion.div>

@@ -1,14 +1,47 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react';
+import { getContactInfo } from '@/lib/queries';
+import { ContactInfo } from '@/types/contactInfo';
 
-const OfficeLocation: React.FC = () => {
+interface OfficeLocationProps {
+  contactInfo?: ContactInfo | null;
+}
+
+const OfficeLocation: React.FC<OfficeLocationProps> = ({ contactInfo: initialContactInfo }) => {
   const t = useTranslations('officeLocation');
   const locale = useLocale();
   const isRtl = locale === 'ar';
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(initialContactInfo || null);
+  const [loading, setLoading] = useState(!initialContactInfo);
+
+  // Fetch contact info if not provided as props
+  useEffect(() => {
+    if (!initialContactInfo) {
+      const fetchContactInfo = async () => {
+        try {
+          const data = await getContactInfo();
+          setContactInfo(data as unknown as ContactInfo);
+        } catch (error) {
+          console.error('Error fetching contact info:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchContactInfo();
+    }
+  }, [initialContactInfo]);
+
+  // Collect all available phone numbers
+  const phoneNumbers: string[] = contactInfo ? [
+    contactInfo.phoneNumber1,
+    contactInfo.phoneNumber2,
+    contactInfo.phoneNumber3,
+  ].filter((phone): phone is string => phone != null && phone.trim() !== '') : [];
   
   // Animation variants
   const containerVariants = {
@@ -33,6 +66,42 @@ const OfficeLocation: React.FC = () => {
       }
     }
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-16 bg-gray-50" dir={isRtl ? 'rtl' : 'ltr'}>
+        <div className="container max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12 animate-pulse">
+            <div className="h-6 bg-gray-300 rounded w-1/4 mx-auto mb-2"></div>
+            <div className="h-12 bg-gray-300 rounded w-1/2 mx-auto mb-6"></div>
+            <div className="h-6 bg-gray-300 rounded w-2/3 mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="bg-gray-300 rounded-xl h-[450px] animate-pulse"></div>
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+              <div className="h-8 bg-gray-300 rounded w-1/2 mb-6"></div>
+              <div className="space-y-6">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex">
+                    <div className="w-10 flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="h-4 bg-gray-300 rounded w-1/4 mb-1"></div>
+                      <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 h-12 bg-gray-300 rounded w-40"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   
   return (
     <section className="py-16 bg-gray-50" dir={isRtl ? 'rtl' : 'ltr'}>
@@ -106,71 +175,92 @@ const OfficeLocation: React.FC = () => {
               variants={itemVariants}
             >
               <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <MapPin size={24} className="text-[var(--golden)] mr-2" />
+                <MapPin size={24} className={`text-[var(--golden)] ${isRtl ? "ml-2" : "mr-2"}`} />
                 {t('officeHeading')}
               </h3>
               
-              <div className="space-y-6">
-                {/* Address */}
-                <div className="flex">
-                  <div className="w-10 flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
-                      <MapPin size={16} className="text-[var(--golden)]" />
+              {contactInfo && (
+                <div className="space-y-6">
+                  {/* Address */}
+                  <div className="flex">
+                    <div className={`w-10 flex-shrink-0 ${isRtl ? "ml-0" : "mr-0"}`}>
+                      <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
+                        <MapPin size={16} className="text-[var(--golden)]" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-sm mb-1">{t('addressLabel')}</p>
+                      <p className="font-medium text-gray-800">
+                        {locale === 'en' ? contactInfo.addressEn : contactInfo.addressAr}
+                      </p>
                     </div>
                   </div>
-                  <div>
-                    <p className="text-gray-500 text-sm mb-1">{t('addressLabel')}</p>
-                    <p className="font-medium text-gray-800">
-                      {t('officeAddress')}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Phone */}
-                <div className="flex">
-                  <div className="w-10 flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
-                      <Phone size={16} className="text-[var(--golden)]" />
+                  
+                  {/* Phone Numbers */}
+                  {phoneNumbers.length > 0 && (
+                    <div className="flex">
+                      <div className={`w-10 flex-shrink-0 ${isRtl ? "ml-0" : "mr-0"}`}>
+                        <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
+                          <Phone size={16} className="text-[var(--golden)]" />
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-gray-500 text-sm mb-1">{t('phoneLabel')}</p>
+                        <div dir="ltr" style={{ textAlign: isRtl ? 'right' : 'left' }}>
+                          {phoneNumbers.map((phone, index) => (
+                            <span key={index}>
+                              <a 
+                                href={`tel:${phone}`}
+                                className="font-medium text-gray-800 hover:text-[var(--golden)] transition-colors"
+                              >
+                                {phone}
+                              </a>
+                              {index < phoneNumbers.length - 1 && (
+                                <span className="text-gray-800"> - </span>
+                              )}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Email */}
+                  <div className="flex">
+                    <div className={`w-10 flex-shrink-0 ${isRtl ? "ml-0" : "mr-0"}`}>
+                      <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
+                        <Mail size={16} className="text-[var(--golden)]" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-sm mb-1">{t('emailLabel')}</p>
+                      <a 
+                        href={`mailto:${contactInfo.email}`}
+                        className="font-medium text-gray-800 hover:text-[var(--golden)] transition-colors"
+                        dir="ltr"
+                        style={{ textAlign: isRtl ? 'right' : 'left' }}
+                      >
+                        {contactInfo.email}
+                      </a>
                     </div>
                   </div>
-                  <div>
-                    <p className="text-gray-500 text-sm mb-1">{t('phoneLabel')}</p>
-                    <a href="tel:+201234567890" className="font-medium text-gray-800 hover:text-[var(--golden)] transition-colors">
-                      +20 123 456 7890
-                    </a>
-                  </div>
-                </div>
-                
-                {/* Email */}
-                <div className="flex">
-                  <div className="w-10 flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
-                      <Mail size={16} className="text-[var(--golden)]" />
+                  
+                  {/* Working Hours */}
+                  <div className="flex">
+                    <div className={`w-10 flex-shrink-0 ${isRtl ? "ml-0" : "mr-0"}`}>
+                      <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
+                        <Clock size={16} className="text-[var(--golden)]" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-sm mb-1">{t('hoursLabel')}</p>
+                      <p className="font-medium text-gray-800">
+                        {t('workingHours')}
+                      </p>
                     </div>
                   </div>
-                  <div>
-                    <p className="text-gray-500 text-sm mb-1">{t('emailLabel')}</p>
-                    <a href="mailto:info@goldenmix.com" className="font-medium text-gray-800 hover:text-[var(--golden)] transition-colors">
-                      info@goldenmix.com
-                    </a>
-                  </div>
                 </div>
-                
-                {/* Working Hours */}
-                <div className="flex">
-                  <div className="w-10 flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-[var(--golden)]/10 flex items-center justify-center">
-                      <Clock size={16} className="text-[var(--golden)]" />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-gray-500 text-sm mb-1">{t('hoursLabel')}</p>
-                    <p className="font-medium text-gray-800">
-                      {t('workingHours')}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              )}
               
               {/* Get Directions Button */}
               <motion.a
@@ -182,7 +272,7 @@ const OfficeLocation: React.FC = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 {t('directionsButton')}
-                <ExternalLink size={16} className="ml-2" />
+                <ExternalLink size={16} className={`${isRtl ? "mr-2" : "ml-2"}`} />
               </motion.a>
             </motion.div>
           </motion.div>

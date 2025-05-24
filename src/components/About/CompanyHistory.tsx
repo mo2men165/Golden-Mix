@@ -36,11 +36,10 @@ const CompanyHistory: React.FC = () => {
 
   // Equipment list based on screenshot
   const equipment = [
-    { name: "concretePump", count: 5 },
-    { name: "concreteMixer", count: 20 },
+    { name: "concretePump", count: 10 },
+    { name: "concreteMixer", count: 40 },
     { name: "loader", count: 4 },
-    { name: "quartzonTruck", count: 3 },
-    { name: "doubleCapTruck", count: 3 }
+    { name: "stations", count: 2 }
   ];
 
   return (
@@ -180,7 +179,7 @@ const CompanyHistory: React.FC = () => {
             {t('equipmentTitle')}
           </motion.h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
             {equipment.map((item, index) => (
               <motion.div
                 key={item.name}

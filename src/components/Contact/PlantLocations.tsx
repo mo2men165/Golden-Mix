@@ -37,10 +37,10 @@ const PlantLocations: React.FC = () => {
       id: 2,
       name: "North Coast Road Plant",
       nameAr: "محطة طريق الساحل الشمالي",
-      address: "North Coast Road, Kilometer 200, VV Project of Genesis Real Estate Development",
-      addressAr: "طريق الساحل الشمالي لـ 200 كم مشروع VV لشركة جينسس للتطوير العقاري",
+      address: "North Coast Road, Kilometer 205, LYV Project of Gates Real Estate Development, next to Mountain View, Ras El-Hekma.",
+      addressAr: "طريق الساحل الشمالي، الكيلو 205، مشروع ليف (LYV) التابع لشركة جيتس للتطوير العقاري، بجوار ماونتن فيو، رأس الحكمة.",
       image: "/images/north-coast.png",
-      mapUrl: "https://maps.google.com/?q=30.4567,30.9876"
+      mapUrl: "https://maps.app.goo.gl/j4HteJ146hwpfLxs9"
     }
   ];
   

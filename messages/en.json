@@ -133,11 +133,10 @@
       "visionTitle": "Our Vision",
       "visionText": "To be the leading provider of ready-mix concrete and construction solutions in Egypt, known for innovation, quality, and reliability in every project we undertake.",
       "equipmentTitle": "Our Equipment Fleet",
-      "concretePump": "Concrete Pump",
-      "concreteMixer": "Concrete Mixer",
-      "loader": "Loader",
-      "quartzonTruck": "Quartzon Truck",
-      "doubleCapTruck": "Double Cap Truck"
+      "concretePump": "Concrete Pumps",
+      "concreteMixer": "Concrete Mixers",
+      "loader": "Loaders",
+      "stations": "Stations"
     },
     "leadership": {
     "subheading": "Our Leadership",

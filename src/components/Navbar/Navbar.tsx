@@ -165,7 +165,7 @@ const Navbar = () => {
               {t('getQuote')}
             </Link> */}
             <WhatsAppButton 
-              phoneNumber="+201007899995 " // Your actual number
+              phoneNumber="+201069661972"
               message="Hi! I'd like to know more about Golden Mix concrete services."
               className=""
             />
